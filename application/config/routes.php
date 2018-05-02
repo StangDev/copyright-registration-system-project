@@ -71,6 +71,7 @@ $route['controlpanel/document/approved'] = 'Document/approved';
 $route['controlpanel/document/approved/form/edit/(:any)'] = 'Document/approved_form_edit';
 $route['controlpanel/document/approved/oper/edit/(:any)'] = 'Document/approved_oper_edit';
 $route['controlpanel/document/approved/form/insert'] = 'Document/approved_form_insert';
+$route['controlpanel/document/approved/form/update'] = 'Document/approved_form_update';
 $route['controlpanel/document/form'] = 'Document/form';
 $route['controlpanel/document/form/insert'] = 'Document/form_insert';
 

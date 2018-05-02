@@ -82,6 +82,13 @@ class Document extends CI_Controller {
     redirect(URL_Site."/controlpanel/document/approved");
     exit(0);
   }
+  public function approved_form_update()
+  {
+    $post = $_POST;
+    $this->Controlpanel_model->approved_form_oper_update($post);
+    redirect(URL_Site."/controlpanel/process");
+    exit(0);
+  }
   public function do_upload($post)
       {
         //header('Content-Type: text/html; charset=utf-8');

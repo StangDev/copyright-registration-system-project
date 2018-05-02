@@ -76,13 +76,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	echo js_asset('core/jquery.3.2.1.min.js');
 	echo js_asset('core/popper.min.js');
 	echo js_asset('core/bootstrap.min.js');
-	// Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/
 	echo js_asset('plugins/bootstrap-switch.js');
-	// Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/
 	echo js_asset('plugins/nouislider.min.js');
-	// Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker
 	echo js_asset('plugins/bootstrap-datepicker.js');
-	// Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc
 	echo js_asset('now-ui-kit.js?v=1.1.0');
   echo js_asset('sweetalert2.min.js');
 ?>

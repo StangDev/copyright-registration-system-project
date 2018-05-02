@@ -79,7 +79,7 @@
                <div class="col-10"><input class="form-control" name="date_receipt_agency" value="<?=@$rowdata[0]['date_receipt_agency']?>" type="date"></div>
             <?php else:?>
            <div class="col-10"><input class="form-control" name="date_receipt_agency" value="" type="date"></div>
-           <?php endif;?>
+         <?php endif;?>s
           </div>
           <div class="form-group row"><label class="col-2 col-form-label" for="example-text-input">วันที่จดเสร็จ</label>
             <?php if(@$rowdata[0]['date_complete'] !== '0000-00-00'):?>
@@ -101,7 +101,7 @@
 $("div.stat select").val("<?=@$rowdata[0]['form_type']?>");
 function submit() {
   var forms=($('#formdata').serialize());
-  var url ='<?=URL_Site?>/controlpanel/document/approved/form/insert';
+  var url ='<?=URL_Site?>/controlpanel/document/approved/form/update';
   $("#formdata").attr('action', url);
   $("#formdata").submit();
 }

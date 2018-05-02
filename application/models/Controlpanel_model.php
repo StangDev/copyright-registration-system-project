@@ -108,8 +108,7 @@ class Controlpanel_model extends CI_Model {
     }
     public function approved_form_insert($post=array())
     {
-      echo "<pre>";
-      print_r($post);
+
       $data = array(
         'id_form'             => $post['id_form'],
         'name_oper'           => $post['name_oper'],
@@ -136,6 +135,25 @@ class Controlpanel_model extends CI_Model {
       'status_flow'   => 6
      );
       $this->process_detail_insert($post_flow);
+    }
+    public function approved_form_oper_update($post=array())
+    {
+
+      $data = array(
+        'name_oper'           => $post['name_oper'],
+        'course_year'         => $post['course_year'],
+        'type_oper'           => $post['type_oper'],
+        'num_form'            => $post['num_form'],
+        'num_register'        => $post['num_register'],
+        'status_oper'         => $post['status_oper'],
+        'price_oper'          => $post['price_oper'],
+        'date_receipt'        => $post['date_receipt'],
+        'date_receipt_cpall'  => $post['date_receipt_cpall'],
+        'date_receipt_agency' => $post['date_receipt_agency'],
+        'date_complete'       => $post['date_complete']
+      );
+      $this->db->where('id_form',$post['id_form']);
+      $this->db->update('operations', $data);
     }
     public function update_status_form($id,$value)
     {
