@@ -343,8 +343,8 @@ class Controlpanel_model extends CI_Model {
     public function get_count_oper_home()
     {
       $s1 = $this->get_forms_num();
-      $s2 = $this->get_oper_num(0);
-      $s3 = $this->get_oper_num(5);
+      $s2 = $this->get_oper_num(5);
+      $s3 = $this->get_oper_num(0);
       $s4_1 = $this->get_oper_num(2);
       $s4_2 = $this->get_oper_num(4);
       $s4 = $s4_1+$s4_2;
@@ -358,6 +358,23 @@ class Controlpanel_model extends CI_Model {
               ->where('status_oper',$type);
       $rowdata =  $this->db->get();
       return $rowdata->num_rows();
+    }
+    public function get_form_bynumoper($type)
+    {
+      $this->db->where('status_oper',$type);
+      $this->db->select('operations.id_oper,
+                          operations.course_year,
+                            operations.name_oper,
+                              operations.type_oper,
+                        user_forms.form_type,
+                          user_forms.first_name,
+                            user_forms.last_name,
+                              user_forms.location,
+                                user_forms.file_url');
+      $this->db->from('operations');
+      $this->db->join('user_forms','user_forms.id_form=operations.id_form');
+      $query=$this->db->get();
+      return $query->result_array();
     }
     public function get_forms_num()
     {

@@ -86,14 +86,22 @@ class Controlpanels extends CI_Controller {
     $this->load->view('template/header',$data);
     $this->load->view('menu2/admin_process_detail_insert_view');
   }
-public function download_document()
-{
-  $title = $this->uri->segment(1);
-  $data  = array('title' => $title.' / download',
-                  'user'=>$_SESSION);
-  $this->load->view('template/header',$data);
-  $this->load->view('menu4/download_document_view');
-}
+  public function download_document()
+  {
+    $title = $this->uri->segment(1);
+    $data  = array('title' => $title.' / download',
+                    'user'=>$_SESSION);
+    $this->load->view('template/header',$data);
+    $this->load->view('menu4/download_document_view');
+  }
+  public function download_document_success()
+  {
+    $title = $this->uri->segment(1);
+    $data  = array('title' => $title.' / download / success ',
+                    'user'=>$_SESSION);
+    $this->load->view('template/header',$data);
+    $this->load->view('menu4/download_document_success_view');
+  }
   function debug_to_console( $data ) {
     $output = $data;
     if ( is_array( $output ) )

@@ -107,6 +107,8 @@
         </li><?php endif;?>
           <?php if($user['logged_type'] == 'admin'): ?><li><a href="<?=URL_Site?>/controlpanel/search" class=""><i class="menu-icon  fa fa-search"></i> <span class="menu-text">ค้นหาข้อมูลตามรายชื่อ</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
         </li><?php endif;?>
+        <?php if($user['logged_type'] == 'user'): ?><li><a href="<?=URL_Site?>/controlpanel/download/success" class=""><i class="menu-icon  fa fa-file-text"></i> <span class="menu-text">ตัวอย่างเอกสาร</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
+      </li><?php endif;?>
         <li><a href="<?=URL_Site?>/controlpanel/download" ><i class="menu-icon fa fa-info-circle"></i> <span class="menu-text">ขั้นตอนการยื่นแบบฟอร์ม</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
         </li>
           <?php if($user['logged_type'] == 'admin'): ?><li><a href="javascript:void(0)" class="submenu-toggle"><i class="menu-icon fa fa-cogs"></i> <span class="menu-text">ตั้งค่า</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
