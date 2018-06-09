@@ -295,7 +295,8 @@ class Controlpanel_model extends CI_Model {
                         user_forms.form_type,
                           user_forms.first_name,
                             user_forms.last_name,
-                              user_forms.location,');
+                              user_forms.location,
+                                user_forms.file_url,');
       $this->db->from('operations');
       $this->db->join('user_forms','user_forms.id_form=operations.id_form');
       $query=$this->db->get();
@@ -359,18 +360,43 @@ class Controlpanel_model extends CI_Model {
       $rowdata =  $this->db->get();
       return $rowdata->num_rows();
     }
-    public function get_form_bynumoper($type)
+    public function get_form_bydowload($post=array())
     {
-      $this->db->where('status_oper',$type);
+      if (count($post)>0) {
+        if ($post['first_name']!="") {
+        $this->db->like('first_name',$post['first_name']);
+        }
+        if ($post['last_name']!="") {
+        $this->db->like('last_name',$post['last_name']);
+        }
+        if ($post['type_form']!="") {
+        $this->db->where('type_form',$post['type_form']);
+        }
+        if ($post['location']!="") {
+        $this->db->like('location',$post['location']);
+        }
+        $this->db->where('status_oper',5);
+        if ($post['name_oper']!="") {
+        $this->db->like('name_oper',$post['name_oper']);
+        }
+      }
       $this->db->select('operations.id_oper,
                           operations.course_year,
                             operations.name_oper,
                               operations.type_oper,
+                                operations.num_form,
+                                  operations.num_register,
+                                    operations.status_oper,
+                                      operations.price_oper,
+                                        operations.date_receipt,
+                                          operations.date_receipt_cpall,
+                                            operations.date_receipt_agency,
+                                              operations.date_complete,
                         user_forms.form_type,
                           user_forms.first_name,
                             user_forms.last_name,
                               user_forms.location,
-                                user_forms.file_url');
+                                user_forms.file_url,');
       $this->db->from('operations');
       $this->db->join('user_forms','user_forms.id_form=operations.id_form');
       $query=$this->db->get();
