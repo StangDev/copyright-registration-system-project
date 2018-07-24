@@ -1,4 +1,6 @@
-
+<?php
+$post = $_POST;
+?>
   <div class="site-content">
     <h2>ติดตามกระบวนการบุคคล</h2>
     <div class="card">
@@ -7,23 +9,21 @@
           <div class="form-group row">
             <label class="col-2 col-form-label" for="exampleInputEmail1">ชื่อผลงาน</label>
             <div class="col-10" >
-             <input class="form-control"   placeholder="" type="text" name="name_oper">
+             <input class="form-control" value="<?= @$post['name_oper'] ?>"  placeholder="" type="text" name="name_oper">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-2 col-form-label" for="exampleInputEmail1">ประเภท</label>
-            <div class="col-5" >
+            <div class="col-5 type_form" >
               <select name="type_form" class="form-control">
                 <option value="">เลือก</option>
-                <option value="1">จดเครื่องหมายการค้า</option>
+                <option value="1">จดสิทธิบัตร อนุสิทธิบัตร</option>
                 <option value="2">จดลิขสิทธิ์</option>
-                <option value="3">จดสิทธิบัตรการประดิษฐ์</option>
-                <option value="4">จดสิทธิบัตรการออกแบบผลิตภัณฑ์</option>
-                <option value="5">จดอนุสิทธิบัตร</option>
+                <option value="3">จดเครื่องหมายการค้า</option>
               </select>
             </div>
             <label class="col-1 col-form-label" for="exampleInputEmail1">สถานะ</label>
-            <div class="col-4" >
+            <div class="col-4 status_oper" >
               <select class="form-control" name="status_oper">
                 <option value="">เลือก</option>
                 <option value="0">กำลังดำเนินการ</option>
@@ -40,7 +40,7 @@
            <div class="text-center">
              <div class="col" style="padding-bottom:2rem;">
              <button class="btn btn-primary" type="submit">ค้นหา</button>
-             <button class="btn btn-light" type="">ยกเลิก</button>
+             <a class="btn btn-light" onclick="location.href='<?= URL_Site ?>/controlpanel/process'" type="">ยกเลิก</a>
            </div>
         </form>
 
@@ -61,11 +61,10 @@
             </thead>
             <tbody>
             <?php
-              $post = $_POST;
               $rowdata = $this->Controlpanel_model->get_forms_oper($post);
               if(count($rowdata)>0):?>
             <?php
-              $form_type =  array('','จดเครื่องหมายการค้า' , 'จดลิขสิทธิ์','จดสิทธิบัตรการประดิษฐ์','จดสิทธิบัตรการออกแบบผลิตภัณฑ์','จดอนุสิทธิบัตร');
+              $form_type = array('', 'จดสิทธิบัตร อนุสิทธิบัตร', 'จดลิขสิทธิ์', 'จดเครื่องหมายการค้า');
               $status_oper =  array('กำลังดำเนินการ','ส่งกลับแก้ไข' , 'ยกเลิกคำขอ','ดำเนินการในชั้นศาล','ไม่รับการจด','จดเรียบร้อยแล้ว','อนุมัติเอกสาร');
               $color_status = array('badge-primary','badge-warning','badge-danger','badge-info','badge-default','badge-success','badge-success');
               foreach ($rowdata as $key => $value):
@@ -99,6 +98,8 @@ echo js_asset('vendor/bower_components/jquery.dataTables.js/dataTables.bootstrap
 <script>
 $(document).ready(function(){
     $('[data-toggle="progressbar"]').tooltip();
+     $("div.type_form select").val("<?=@$post['type_form']?>");
+  $("div.status_oper select").val("<?=@$post['status_oper']?>");
     $('#myTable').DataTable( {
       responsive: true,
       searching: false,
@@ -108,3 +109,10 @@ $(document).ready(function(){
 });
 
 </script>
+
+รายการแก้ไข
+
+-ปรับแก้ประเภท
+-ปรับโครงสร้าง DB
+-ปรับการดำเนินการติดตาม
+-ปรับหน้าค้นหา

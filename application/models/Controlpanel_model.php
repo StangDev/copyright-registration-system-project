@@ -101,6 +101,8 @@ class Controlpanel_model extends CI_Model {
         'location'    => $post['location'],
         'file_url'    => $post['file_url'],
         'file_path'   => $post['file_path'],
+        'file_regis_url'    => $post['file_regis_url'],
+        'file_regis_path'   => $post['file_regis_path'],
         'form_status'   => 0,
         'insert_time' => date('Y-m-d')
       );
@@ -165,13 +167,13 @@ class Controlpanel_model extends CI_Model {
     {
       if (count($post)>0) {
         if ($post['type_form']!="") {
-        $this->db->where('operations.type_form',$post['type_form']);
+        $this->db->where('form_type',$post['type_form']);
         }
         if ($post['status_oper']!="") {
-        $this->db->where('operations.status_oper',$post['status_oper']);
+        $this->db->where('status_oper',$post['status_oper']);
         }
         if ($post['name_oper']!="") {
-        $this->db->like('operations.name_oper',$post['name_oper']);
+        $this->db->like('name_oper',$post['name_oper']);
         }
       }
       $this->db->select('operations.id_oper,
@@ -271,7 +273,7 @@ class Controlpanel_model extends CI_Model {
         $this->db->like('last_name',$post['last_name']);
         }
         if ($post['type_form']!="") {
-        $this->db->where('type_form',$post['type_form']);
+        $this->db->where('form_type',$post['type_form']);
         }
         if ($post['status_oper']!="") {
         $this->db->where('status_oper',$post['status_oper']);
@@ -300,8 +302,10 @@ class Controlpanel_model extends CI_Model {
       $this->db->from('operations');
       $this->db->join('user_forms','user_forms.id_form=operations.id_form');
       $query=$this->db->get();
+    //$this->output->enable_profiler(true);
+    //echo $this->db->last_query();
       return $query->result_array();
-      //$this->output->enable_profiler(TRUE);
+     
     }
     public function process_detail_insert($post=array())
     {

@@ -41,6 +41,7 @@ class Document extends CI_Controller {
   public function form_insert()
   {
   $post = $_POST;
+  print_r($post);
   $this->do_upload($post);
   }
   public function approved()
@@ -111,14 +112,25 @@ class Document extends CI_Controller {
                       $error = array('error' => $this->upload->display_errors());
                       echo "<pre>";
                       print_r($error);
+              } else {
+                  $data = $this->upload->data();
+                  $post['file_url'] = URL_Site . '/' . $path . $data['file_name'];
+                  $post['file_path'] = $data['full_path'];
+                
+                }
+              if(!$this->upload->do_upload('RegisForm'))
+              {
+                      $error = array('error' => $this->upload->display_errors());
+                      echo "<pre>";
+                      print_r($error);
               }
               else
               {
                       $data = $this->upload->data();
-                      //echo "<pre>";
-                      //print_r($data);
-                      $post['file_url']  = URL_Site.'/'.$path.$data['file_name'];
-                      $post['file_path'] = $data['full_path'];
+                      // echo "<pre>";
+                      // print_r($data);
+                      $post['file_regis_url']  = URL_Site.'/'.$path.$data['file_name'];
+                      $post['file_regis_path'] = $data['full_path'];
                       //print_r($post);
                       $title = $this->uri->segment(1);
                       $data  = array('title' => $title.' / document / form',
@@ -127,6 +139,8 @@ class Document extends CI_Controller {
                       $this->Controlpanel_model->form_insert($post);
                       $this->load->view('loader/user_form_success_view');
               }
+            
+              
       }
 
 

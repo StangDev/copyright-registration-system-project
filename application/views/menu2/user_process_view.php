@@ -20,7 +20,7 @@
               $rowdata = $this->Controlpanel_model->get_forms_oper_user_detail($user['logged_user']);
               if(count($rowdata)>0):?>
             <?php
-              $form_type =  array('','จดเครื่องหมายการค้า' , 'จดลิขสิทธิ์','จดสิทธิบัตรการประดิษฐ์','จดสิทธิบัตรการออกแบบผลิตภัณฑ์','จดอนุสิทธิบัตร');
+              $form_type =  array('', 'จดสิทธิบัตร อนุสิทธิบัตร' , 'จดลิขสิทธิ์', 'จดเครื่องหมายการค้า');
               $status_oper =  array('กำลังดำเนินการ','ส่งกลับแก้ไข' , 'ยกเลิกคำขอ','ดำเนินการในชั้นศาล','ไม่รับการจด','จดเรียบร้อยแล้ว','อนุมัติเอกสาร');
               $color_status = array('badge-primary','badge-warning','badge-danger','badge-info','badge-default','badge-success','badge-success');
               foreach ($rowdata as $key => $value):

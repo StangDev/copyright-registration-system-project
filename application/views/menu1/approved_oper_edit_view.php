@@ -28,11 +28,9 @@
           <div class="form-group row"><label class="col-2 col-form-label" for="example-text-input">ทรัพย์สินทางปัญญา</label>
             <div class="col-10 stat">
               <select class="form-control">
-                <option value="1">จดเครื่องหมายการค้า</option>
+                <option value="1">จดสิทธิบัตร อนุสิทธิบัตร</option>
                 <option value="2">จดลิขสิทธิ์</option>
-                <option value="3">จดสิทธิบัตรการประดิษฐ์</option>
-                <option value="4">จดสิทธิบัตรการออกแบบผลิตภัณฑ์</option>
-                <option value="5">จดอนุสิทธิบัตร</option>
+                <option value="3">จดเครื่องหมายการค้า</option>
               </select>
             </div>
           </div>

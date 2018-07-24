@@ -35,15 +35,21 @@
       </div>
       <div class="form-group row">
         <label for="example-text-input" class="col-2 col-form-label" >ประเภทคำร้อง :</label>
-        <div class="col-7">
-          <select name="type_form" class="form-control">
+        <div class="col-10">
+          <select name="type_form" class="form-control typeFormSelect col-8">
             <option value="">เลือก</option>
-            <option value="1">จดเครื่องหมายการค้า</option>
+            <option value="1">จดสิทธิบัตร อนุสิทธิบัตร</option>
+            <option value="2">จดลิขสิทธิ์</option>
+            <option value="3">จดเครื่องหมายการค้า</option>
+            <!-- <option value="1">จดเครื่องหมายการค้า</option>
             <option value="2">จดลิขสิทธิ์</option>
             <option value="3">จดสิทธิบัตรการประดิษฐ์</option>
             <option value="4">จดสิทธิบัตรการออกแบบผลิตภัณฑ์</option>
-            <option value="5">จดอนุสิทธิบัตร</option>
+            <option value="5">จดอนุสิทธิบัตร</option> -->
           </select>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-7" id="fileDowload">
         </div>
       </div>
       <div class="form-group row">
@@ -51,6 +57,15 @@
         <div class="col-7">
           <label class="custom-file col-7">
             <input type="file" id="image" class="custom-file-input" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/pdf,application/vnd.ms-excel" name="userfile" >
+            <span class="custom-file-control" data-content="Choose file..."></span>
+          </label>
+        </div>
+      </div>
+       <div class="form-group row">
+        <label for="example-text-input" class="col-2 col-form-label" >เอกสารจดทะเบียน :</label>
+        <div class="col-7">
+          <label class="custom-file col-7">
+            <input type="file" id="image" class="custom-file-input" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/pdf,application/vnd.ms-excel" name="RegisForm" >
             <span class="custom-file-control" data-content="Choose file..."></span>
           </label>
         </div>
@@ -89,4 +104,37 @@ function submit() {
       $("#formdata").submit();
 
 }
+
+$( ".typeFormSelect" ).change(function() {
+  var data = $(".typeFormSelect").val();
+  console.log(data);
+  
+  var fileName ="";
+  var name="";
+  switch (data) {
+    case '1':
+      fileName = "แบบฟอร์มคำขอสิทธิบัตร อนุสิทธิบัตร.doc";
+      name ="แบบฟอร์มคำขอสิทธิบัตร อนุสิทธิบัตร";
+      break;
+    case '2':
+      fileName = "แบบฟอร์มคำขอลิขสิทธิ์.doc";
+      name ="แบบฟอร์มคำขอลิขสิทธิ์";
+      break;
+    case '3':
+      fileName = "แบบฟอร์มคำขอเครื่องหมายการค้า.pdf";
+      name ="แบบฟอร์มคำขอเครื่องหมายการค้า";
+      break;
+    default:
+      break;
+  }
+
+ 
+  html=' <div class="col-md mt-2"><a href="<?= URL_Site ?>/assets/form/'+fileName+'" download><div class="card p-1 bg-faded"><div class="media bg-white p-3"><img class="avatar avatar-circle avatar-md" src="<?= URL_Site ?>/assets/flow/pdf.png" alt=""><div class="media-body"><h6>'+name+'</h6><div>'+fileName+'</div></div></div></div></a></div>'; 
+  if (fileName) {
+    console.log(html);
+    $("#fileDowload").html(html);
+  }
+  
+
+});
 </script>

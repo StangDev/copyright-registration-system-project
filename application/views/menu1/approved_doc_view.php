@@ -25,7 +25,8 @@
             <!-- /.media -->
             <div class="section-2">
               <small class="text-muted mr-auto hidden-xs-down">(<?=@date("d/m/Y", strtotime($value['insert_time']))?>)</small>
-              <a href="<?=@$value['file_url']?>" class="btn btn-light btn-sm ml-2" download><i class="fa fa-download" aria-hidden="true"></i> เอกสาร</a>
+              <a href="<?=@$value['file_url']?>" class="btn btn-light btn-sm ml-2" download><i class="fa fa-download" aria-hidden="true"></i> เอกสารคำร้อง </a>
+              <a href="<?= @$value['file_regis_url'] ?>" class="btn btn-light btn-sm ml-2" download><i class="fa fa-download" aria-hidden="true"></i> เอกสารจดทะเบียน </a>
               <a href="<?=URL_Site?>/controlpanel/document/approved/form/edit/<?=@$value['id_form']?>" class="btn btn-success btn-sm ml-2">อนุมัติ</a>
               <a href="#" class="btn btn-danger btn-sm ml-2">ไม่อนุมัติ</a>
             </div>

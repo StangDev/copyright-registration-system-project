@@ -20,11 +20,9 @@ $post =$_POST;
             <div class="col-4 type_form" >
               <select name="type_form" class="form-control">
                 <option value=""></option>
-                <option value="1">จดเครื่องหมายการค้า</option>
+                <option value="1">จดสิทธิบัตร อนุสิทธิบัตร</option>
                 <option value="2">จดลิขสิทธิ์</option>
-                <option value="3">จดสิทธิบัตรการประดิษฐ์</option>
-                <option value="4">จดสิทธิบัตรการออกแบบผลิตภัณฑ์</option>
-                <option value="5">จดอนุสิทธิบัตร</option>
+                <option value="3">จดเครื่องหมายการค้า</option>
               </select>
             </div>
           </div>
@@ -80,7 +78,7 @@ $post =$_POST;
                 </thead>
                 <tbody>
                   <?php
-                  $form_type =  array('','จดเครื่องหมายการค้า' , 'จดลิขสิทธิ์','จดสิทธิบัตรการประดิษฐ์','จดสิทธิบัตรการออกแบบผลิตภัณฑ์','จดอนุสิทธิบัตร');
+                  $form_type = array('', 'จดสิทธิบัตร อนุสิทธิบัตร', 'จดลิขสิทธิ์', 'จดเครื่องหมายการค้า');
                   $status_oper =   array('กำลังดำเนินการ','ส่งกลับแก้ไข' , 'ยกเลิกคำขอ','ดำเนินการในชั้นศาล','ไม่รับการจด','จดเรียบร้อยแล้ว','อนุมัติเอกสาร');
                     $post = $_POST;
                     $rowdata = $this->Controlpanel_model->get_search_list($post);
