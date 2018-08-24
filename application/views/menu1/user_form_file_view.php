@@ -30,7 +30,7 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-2 col-form-label" >ชื่อคณะ/สำนัก :</label>
         <div class="col-7">
-            <select name="location" class="form-control typeFormSelect col-8">
+            <select name="location" class="form-control col-8">
               <option value="">เลือก</option>
               <option value="คณะบริหารธุรกิจ">คณะบริหารธุรกิจ</option>
               <option value="คณะการจัดการธุรกิจอาหาร">คณะการจัดการธุรกิจอาหาร</option>
@@ -164,7 +164,7 @@ $( ".typeFormSelect" ).change(function() {
   }
 
 
-  html=' <div class="col-md mt-2"><a href="<?= URL_Site ?>/assets/form/'+fileName+'" download><div class="card p-1 bg-faded"><div class="media bg-white p-3"><img class="avatar avatar-circle avatar-md" src="<?= URL_Site ?>/assets/flow/pdf.png" alt=""><div class="media-body"><h6>'+name+'</h6><div>'+fileName+'</div></div></div></div></a></div>';
+var  html=' <div class="col-md mt-2"><a href="<?= URL_Site ?>/assets/form/'+fileName+'" download><div class="card p-1 bg-faded"><div class="media bg-white p-3"><img class="avatar avatar-circle avatar-md" src="<?= URL_Site ?>/assets/flow/pdf.png" alt=""><div class="media-body"><h6>'+name+'</h6><div>'+fileName+'</div></div></div></div></a></div>';
   if (fileName) {
     console.log(html);
     $("#fileDowload").html(html);
