@@ -6,6 +6,12 @@
   <div style="padding: 50px;">
     <form action="" id="formdata" method="post" enctype="multipart/form-data">
       <input type="text" value="<?=@$_SESSION['logged_user']?>"  name="user_id" style="display: none;">
+       <div class="form-group row">
+        <label for="example-text-input" class="col-2 col-form-label" >ชื่อผลงาน :</label>
+        <div class="col-6">
+          <input class="form-control" type="text" value="" placeholder="" name="name_oper">
+        </div>
+      </div>
       <div class="form-group row">
         <label for="example-text-input" class="col-2 col-form-label" >ชื่อ :</label>
         <div class="col-3">

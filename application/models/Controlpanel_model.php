@@ -92,6 +92,7 @@ class Controlpanel_model extends CI_Model {
     }
     public function form_insert($post=array())
     {
+
       $data = array(
         'user_id'     => $post['user_id'],
         'first_name'  => $post['first_name'],
@@ -106,8 +107,23 @@ class Controlpanel_model extends CI_Model {
         'form_status'   => 0,
         'insert_time' => date('Y-m-d')
       );
-      $this->db->insert('user_forms', $data);
+      echo "<pre>";
+      $id_form = $this->add_form($data);
+     
+      $data_oper = array(
+        'id_form' => $id_form,
+        'name_oper' => $post['name_oper'],
+      );
+      print_r($data_oper);
+      $this->db->insert('operations', $data_oper);
     }
+    function add_form($post_data)
+    {
+      $this->db->insert('user_forms', $post_data);
+      $insert_id = $this->db->insert_id();
+
+      return $insert_id;
+   }
     public function approved_form_insert($post=array())
     {
 

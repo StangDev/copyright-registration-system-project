@@ -3,7 +3,7 @@
     <h2>แบบฟอร์มข้อมูล</h2>
     <div class="card">
       <div style="padding:2rem;">
-        <?php $rowdata = $this->Controlpanel_model->get_forms_byid($id_form);?>
+        <?php $rowdata = $this->Controlpanel_model->get_forms_oper_detail($id_form);?>
         <form id="formdata" method="post" enctype="multipart/form-data">
           <input style="display:none;" value="<?=@$rowdata[0]['id_form']?>" name="id_form" type="text">
           <div class="form-group row"><label class="col-2 col-form-label" for="example-text-input">ชื่อผลงาน</label>
