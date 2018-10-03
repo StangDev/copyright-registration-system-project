@@ -12,6 +12,7 @@ class Document extends CI_Controller {
          $this->load->helper('asset_url');
          $this->load->model('Controlpanel_model');
          $this->load->helper("file");
+         $this->load->library('session');
 
          if (!isset($_SESSION['logged_in'])){
 
@@ -32,11 +33,14 @@ class Document extends CI_Controller {
 	}
   public function form()
   {
+    $userid = $this->session->userdata('logged_user_id');
     $title = $this->uri->segment(1);
     $data  = array('title' => $title.' / document / form',
                     'user'=>$_SESSION);
     $this->load->view('template/header',$data);
-    $this->load->view('menu1/user_form_file_view');
+    $rowdata =  $this->Controlpanel_model->get_account_userById($userid);
+    $data  = array('rowdata' =>$rowdata[0]);
+    $this->load->view('menu1/user_form_file_view',$data);
   }
   public function form_insert()
   {
@@ -116,7 +120,7 @@ class Document extends CI_Controller {
                   $data = $this->upload->data();
                   $post['file_url'] = URL_Site . '/' . $path . $data['file_name'];
                   $post['file_path'] = $data['full_path'];
-                
+
                 }
               if(!$this->upload->do_upload('RegisForm'))
               {
@@ -139,8 +143,8 @@ class Document extends CI_Controller {
                       $this->Controlpanel_model->form_insert($post);
                       $this->load->view('loader/user_form_success_view');
               }
-            
-              
+
+
       }
 
 

@@ -10,8 +10,8 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>ลำดับ</th>
                   <th>ชื่อผู้ใช้</th>
+                  <th>ชื่อคณะ/สำนัก</th>
                   <th>วันที่เพิ่ม</th>
                   <th>จัดการ</th>
                 </tr>
@@ -22,10 +22,11 @@
                   if(count($rowdata)>0):?>
                   <?php foreach ($rowdata as $key => $value): ?>
                 <tr>
-                  <th>1</th>
+
                   <td><?=@$value['user_name']?></td>
+                  <td><?=@$value['user_location']?></td>
                   <td><?=@$value['create_date']?></td>
-                  <td><a href="#" class="btn btn-danger btn-sm ml-2">ลบ</a></td>
+                  <td><a href="<?=URL_Site?>/controlpanel/setting/user/edit/<?=@$value['user_id']?>" class="btn btn-primary btn-sm ml-2">แก้ไข</a><a href="<?=URL_Site?>/controlpanel/setting/account/delete/<?=@$value['user_id']?>" class="btn btn-danger btn-sm ml-2">ลบ</a></td>
                 </tr>
             <?php endforeach;else: ?>
               <tr style="padding: 2em;">

@@ -28,6 +28,7 @@ class Webpage extends CI_Controller {
       $key = $this->rand_code(16);
 			$array =	 array('logged_in' => true,
 											'logged_key' => $key,
+											'logged_user_id' => $rowdata[0]['user_id'],
 											'logged_user' => $rowdata[0]['user_name'],
 											'logged_type' => $rowdata[0]['user_type']);
 			$this->session->set_userdata($array);

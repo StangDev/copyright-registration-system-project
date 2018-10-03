@@ -109,6 +109,36 @@ class Controlpanels extends CI_Controller {
 
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
   }
+  public function setting_viewuser()
+  {
+    $title = $this->uri->segment(1);
+    $data  = array('title' => $title.' / setting / viewuser',
+                    'user'=>$_SESSION);
+    $this->load->view('template/header',$data);
+    $this->load->view('menu_setting/setting_admin_viewuser');
+  }
+  public function setting_viewuser_edit()
+  {
+    $id = $this->uri->segment(5);
+    $countrow = $this->Controlpanel_model->get_count_setting_viewuser($id);
+    if ($_POST) {
+      if ($countrow>0) {
+        $this->Controlpanel_model->update_setting_viewuser($_POST);
+      }else {
+        $this->Controlpanel_model->create_setting_viewuser($_POST);
+      }
+      redirect(base_url().'controlpanel/setting/viewuser');
+    }else {
+      $rowdata = $this->Controlpanel_model->get_setting_viewuser($id);
+      $title = $this->uri->segment(1);
+      $data  = array('title' => $title.' / setting / viewuser / edit',
+                      'user'=>$_SESSION);
+      $this->load->view('template/header',$data);
+      $data  = array('cer_id' => $id,'rowdata'=> $rowdata);
+      $this->load->view('menu_setting/setting_admin_viewuser_edit',  $data );
+    }
+
+  }
   public function setting_admin()
   {
     $title = $this->uri->segment(1);
@@ -128,8 +158,25 @@ class Controlpanels extends CI_Controller {
     $title = $this->uri->segment(1);
     $data  = array('title' => $title.' / setting / admin / insert',
                     'user'=>$_SESSION);
+    $data  = array('rowdata' =>[]);
+    $this->load->view('menu_setting/setting_admin_create_view',$data);
+  }
+  public function setting_admin_edit()
+  {
+    $post = $_POST;
+    if (count($post)>0) {
+      $this->Controlpanel_model->update_account($post);
+      redirect(URL_Site."/controlpanel/setting/admin");
+      exit(0);
+    }
+    $title = $this->uri->segment(1);
+    $id = $this->uri->segment(5);
+    $data  = array('title' => $title.' / setting / admin / insert',
+                    'user'=>$_SESSION);
     $this->load->view('template/header',$data);
-    $this->load->view('menu_setting/setting_admin_create_view');
+    $rowdata =  $this->Controlpanel_model->get_account_userById($id);
+    $data  = array('rowdata' =>$rowdata[0]);
+    $this->load->view('menu_setting/setting_admin_create_view',$data);
   }
   public function setting_user()
   {
@@ -138,6 +185,23 @@ class Controlpanels extends CI_Controller {
                     'user'=>$_SESSION);
     $this->load->view('template/header',$data);
     $this->load->view('menu_setting/setting_user_view');
+  }
+  public function setting_user_edit()
+  {
+    $post = $_POST;
+    if (count($post)>0) {
+      $this->Controlpanel_model->update_account($post);
+      redirect(URL_Site."/controlpanel/setting/admin");
+      exit(0);
+    }
+    $title = $this->uri->segment(1);
+    $id = $this->uri->segment(5);
+    $data  = array('title' => $title.' / setting / admin / insert',
+                    'user'=>$_SESSION);
+    $this->load->view('template/header',$data);
+    $rowdata =  $this->Controlpanel_model->get_account_userById($id);
+    $data  = array('rowdata' =>$rowdata[0]);
+    $this->load->view('menu_setting/setting_user_create_view',$data);
   }
   public function setting_user_insert()
   {
@@ -151,13 +215,14 @@ class Controlpanels extends CI_Controller {
     $data  = array('title' => $title.' / setting / user / insert',
                     'user'=>$_SESSION);
     $this->load->view('template/header',$data);
-    $this->load->view('menu_setting/setting_user_create_view');
+    $data  = array('rowdata' =>[]);
+    $this->load->view('menu_setting/setting_user_create_view',$data);
   }
   public function delete_account_user()
   {
     $id = $this->uri->segment(5);
     $this->Controlpanel_model->update_status_user($id);
-    redirect(URL_Site."/controlpanel/setting/user");
+    redirect(URL_Site."/controlpanel/");
     exit(0);
   }
   function rand_code($len){

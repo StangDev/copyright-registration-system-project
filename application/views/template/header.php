@@ -7,8 +7,8 @@
   <meta name="description" content="Luxury is a premium adman dashboard template based on bootstrap" />
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+  <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" /> -->
   <!-- theme customizier \ demo only -->
   <?php
   echo css_asset('admin/theme-customizer.css');
@@ -16,6 +16,7 @@
   ?>
   <!-- core plugins -->
   <?php
+
   echo css_asset('vendor/css/hamburgers.css');
   echo css_asset('vendor/bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css');
   echo css_asset('vendor/bower_components/switchery/dist/switchery.min.css');
@@ -34,7 +35,14 @@
   echo css_asset('vendor/bower_components/font-awesome/css/font-awesome.min.css');
   echo css_asset('vendor/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css');
   echo js_asset('vendor/bower_components/breakpoints.js/dist/breakpoints.min.js');
+  echo js_asset('vendor/froala_editor_2.8.5/css/froala_editor.min.css');
   ?>
+    <link rel="stylesheet" href="<?= base_url() ?>assets/js/vendor/froala_editor_2.8.5/css/froala_editor.min.css" />
+    <!-- Include all Editor plugins CSS style. -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/js/vendor/froala_editor_2.8.5/css/froala_editor.pkgd.min.css">
+
+    <!-- Include Code Mirror CSS. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600" />
   <script>
     Breakpoints({
@@ -97,9 +105,9 @@
       <ul class="site-menu">
         <!-- MAIN NAVIGATION SECTION -->
         <li><a href="<?=URL_Site?>/controlpanel"><i class="menu-icon fa fa-home zmdi-hc-lg"></i> <span class="menu-text">หน้าหลัก</span></a></li>
-        <li><a href="javascript:void(0)" class="submenu-toggle"><i class="menu-icon zmdi zmdi-dropbox zmdi-hc-lg"></i> <span class="menu-text">แบบฟอร์มคำร้อง</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
+        <li><a href="javascript:void(0)" class="submenu-toggle"><i class="menu-icon zmdi zmdi-dropbox zmdi-hc-lg"></i> <span class="menu-text">ประสงค์ยื่นคำร้อง</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
           <ul class="submenu">
-            <li><a href="<?=URL_Site?>/controlpanel/document/form"><span class="menu-text">เพิ่มเอกสาร</span></a></li>
+            <li><a href="<?=URL_Site?>/controlpanel/document/form"><span class="menu-text">ยื่นคำร้อง</span></a></li>
             <?php if($user['logged_type'] == 'admin'): ?><li><a href="<?=URL_Site?>/controlpanel/document/approved"><span class="menu-text">อนุมัติคำร้อง</span></a></li><?php endif;?>
           </ul>
         </li>
@@ -115,6 +123,7 @@
           <ul class="submenu">
             <li><a href="<?=URL_Site?>/controlpanel/setting/admin"><span class="menu-text">ตั้งค่าผู้ดูแลระบบ</span></a></li>
             <li><a href="<?=URL_Site?>/controlpanel/setting/user"><span class="menu-text">ตั้งค่าผู้ใช้</span></a></li>
+            <li><a href="<?=URL_Site?>/controlpanel/setting/viewuser"><span class="menu-text">ตั้งค่าแสดงผลหน้าหลักผู้ใช้</span></a></li>
           </ul>
           <?php endif;?>
         </li>

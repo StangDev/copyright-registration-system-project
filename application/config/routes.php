@@ -78,8 +78,13 @@ $route['controlpanel/document/form/insert'] = 'Document/form_insert';
 
 /////// Setting Controller ///////////////
 
+$route['controlpanel/setting/viewuser'] = 'Controlpanels/setting_viewuser';
+$route['controlpanel/setting/viewuser/edit/(:any)'] = 'Controlpanels/setting_viewuser_edit';
+
 $route['controlpanel/setting/admin'] = 'Controlpanels/setting_admin';
 $route['controlpanel/setting/admin/insert'] = 'Controlpanels/setting_admin_insert';
+$route['controlpanel/setting/admin/edit/(:any)'] = 'Controlpanels/setting_admin_edit';
 $route['controlpanel/setting/user'] = 'Controlpanels/setting_user';
 $route['controlpanel/setting/user/insert'] = 'Controlpanels/setting_user_insert';
+$route['controlpanel/setting/user/edit/(:any)'] = 'Controlpanels/setting_user_edit';
 $route['controlpanel/setting/account/delete/(:any)'] = 'Controlpanels/delete_account_user';

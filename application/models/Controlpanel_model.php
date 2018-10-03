@@ -10,6 +10,10 @@ class Controlpanel_model extends CI_Model {
       $data = array(
         'user_name' => $post['username'],
         'user_pass' => $post['password'],
+        'user_first_name' => $post['first_name'],
+        'user_last_name' => $post['last_name'],
+        'user_level' => $post['level'],
+        'user_location' => $post['location'],
         'user_type' => 'admin',
         'user_status' => 1,
         'create_date' => date('Y-m-d')
@@ -17,11 +21,30 @@ class Controlpanel_model extends CI_Model {
       $this->db->insert('user', $data);
       //$sql = $this->db->last_query(); แสดง query
     }
+    public function update_account($post=array())
+    {
+      $data = array(
+        'user_name' => $post['username'],
+        'user_pass' => $post['password'],
+        'user_first_name' => $post['first_name'],
+        'user_last_name' => $post['last_name'],
+        'user_level' => $post['level'],
+        'user_location' => $post['location'],
+        'create_date' => date('Y-m-d')
+      );
+      $this->db->where('user_id',$post['id']);
+      $this->db->update('user', $data);
+      //$sql = $this->db->last_query(); แสดง query
+    }
     public function create_account_user($post=array())
     {
       $data = array(
         'user_name' => $post['username'],
         'user_pass' => $post['password'],
+        'user_first_name' => $post['first_name'],
+        'user_last_name' => $post['last_name'],
+        'user_level' => $post['level'],
+        'user_location' => $post['location'],
         'user_type' => 'user',
         'user_status' => 1,
         'create_date' => date('Y-m-d')
@@ -50,6 +73,16 @@ class Controlpanel_model extends CI_Model {
               ->from('user')
               ->where('user_status',1)
               ->where('user_type',$type);
+      $rowdata =  $this->db->get();
+
+      return $rowdata->result_array();
+    }
+    public function get_account_userById($id)
+    {
+      $this->db->select('*')
+              ->from('user')
+              ->where('user_status',1)
+              ->where('user_id',$id);
       $rowdata =  $this->db->get();
 
       return $rowdata->result_array();
@@ -109,7 +142,7 @@ class Controlpanel_model extends CI_Model {
       );
       echo "<pre>";
       $id_form = $this->add_form($data);
-     
+
       $data_oper = array(
         'id_form' => $id_form,
         'name_oper' => $post['name_oper'],
@@ -321,7 +354,7 @@ class Controlpanel_model extends CI_Model {
     //$this->output->enable_profiler(true);
     //echo $this->db->last_query();
       return $query->result_array();
-     
+
     }
     public function process_detail_insert($post=array())
     {
@@ -430,6 +463,39 @@ class Controlpanel_model extends CI_Model {
       $rowdata =  $this->db->get();
 
       return $rowdata->num_rows();
+    }
+    public function create_setting_viewuser($post=array())
+    {
+      $post['create_date'] =  date('Y-m-d');
+      $this->db->insert('user_view_edit', $post);
+    }
+    public function update_setting_viewuser($post=array())
+    {
+      $data = array(
+        'name' => $post['name'],
+        'remark' => $post['remark'],
+        'price' => $post['price'],
+      );
+      $this->db->where('id',$post['id']);
+      $this->db->update('user_view_edit', $data);
+    }
+    public function get_count_setting_viewuser($id)
+    {
+      $this->db->select('*')
+              ->from('user_view_edit')
+              ->where('id',$id);
+      $rowdata =  $this->db->get();
+
+      return $rowdata->num_rows();
+    }
+    public function get_setting_viewuser($id)
+    {
+      $this->db->select('*')
+              ->from('user_view_edit')
+              ->where('id',$id);
+      $rowdata =  $this->db->get();
+
+      return $rowdata->result_array();
     }
 
 

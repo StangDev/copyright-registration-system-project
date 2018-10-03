@@ -118,6 +118,7 @@ $( document ).ready(function() {
   $("div.type_form select").val("<?=@$post['type_form']?>");
   $("div.status_oper select").val("<?=@$post['status_oper']?>");
   $('#myTable').DataTable( {
+    scrollX: true,
     responsive: true,
     searching: false,
     deferRender:    true,

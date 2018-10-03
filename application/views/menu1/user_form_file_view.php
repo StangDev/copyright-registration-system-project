@@ -15,17 +15,17 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-2 col-form-label" >ชื่อ :</label>
         <div class="col-3">
-          <input class="form-control" type="text" value="" placeholder="" name="first_name">
+          <input class="form-control" type="text" value="<?=@$rowdata['user_first_name']?>" placeholder="" name="first_name">
         </div>
         <label for="example-text-input" class="col-2 col-form-label" >นามสกุล :</label>
         <div class="col-3">
-          <input class="form-control" type="text" value="" placeholder="" name="last_name">
+          <input class="form-control" type="text" value="<?=@$rowdata['user_last_name']?>" placeholder="" name="last_name">
         </div>
       </div>
       <div class="form-group row">
         <label for="example-text-input" class="col-2 col-form-label" >ตำแหน่ง :</label>
         <div class="col-7">
-          <select name="level" class="form-control">
+          <select name="level" class="form-control" id="level">
             <option value="">เลือก</option>
             <option value="0">นักศึกษา</option>
             <option value="1">อาจารย์</option>
@@ -36,7 +36,7 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-2 col-form-label" >ชื่อคณะ/สำนัก :</label>
         <div class="col-7">
-            <select name="location" class="form-control col-8">
+            <select name="location" class="form-control col-8" id="location">
               <option value="">เลือก</option>
               <option value="คณะบริหารธุรกิจ">คณะบริหารธุรกิจ</option>
               <option value="คณะการจัดการธุรกิจอาหาร">คณะการจัดการธุรกิจอาหาร</option>
@@ -123,6 +123,14 @@
 <?php   $this->load->view('template/footer');?>
 <script>
 $( document ).ready(function() {
+
+  <?php if(@$rowdata['user_level'] !== '' && count($rowdata) >0):?>
+  $("#level").val('<?=@$rowdata['user_level']?>');
+  <?php endif;?>
+  <?php if(@$rowdata['user_location'] !== '' && count($rowdata) >0):?>
+  $("#location").val('<?=@$rowdata['user_location']?>');
+  <?php endif;?>
+
 
   $("input[type=file]").change(function () {
     var fieldVal = $(this).val();
