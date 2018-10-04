@@ -11,13 +11,12 @@
             </div>
             <div class="form-group">
               <label for="remark">ความหมาย</label>
-              <input type="hidden" name="remark" value="<?=@$rowdata[0]['remark']?>" id="remark_input"/>
-              <textarea id="remark" ><?=@$rowdata[0]['remark']?></textarea>
+
+              <textarea id="remark" name="remark"><?=@$rowdata[0]['remark']?></textarea>
             </div>
             <div class="form-group">
               <label for="price">ค่าใช้จ่าย</label>
-              <input type="hidden" name="price" value="<?=@$rowdata[0]['price']?>" id="price_input"/>
-              <textarea id="price" ><?=@$rowdata[0]['price']?></textarea>
+              <textarea id="price"  name="price"><?=@$rowdata[0]['price']?></textarea>
             </div>
             <button type="submit" class="btn btn-primary">บันทึก</button>
           </form>
@@ -36,14 +35,14 @@ echo js_asset('vendor/froala_editor_2.8.5/js/froala_editor.pkgd.min.js');
     $('textarea#remark').froalaEditor({
       toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'fontFamily', 'fontSize', '|', 'color', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertTable', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
     }).on('froalaEditor.contentChanged', function (e, editor) {
-      var htmlData = editor.html.get()
-      $('#remark_input').val(htmlData);
+      // var htmlData = editor.html.get()
+      // $('#remark_input').val(htmlData);
     });
     $('textarea#price').froalaEditor({
       toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'fontFamily', 'fontSize', '|', 'color', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertTable', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
     }).on('froalaEditor.contentChanged', function (e, editor) {
-      var htmlData = editor.html.get()
-      $('#price_input').val(htmlData);
+      // var htmlData = editor.html.get()
+      // $('#price_input').val(htmlData);
     });
   });
 
