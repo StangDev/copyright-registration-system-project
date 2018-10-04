@@ -45,7 +45,6 @@ class Document extends CI_Controller {
   public function form_insert()
   {
   $post = $_POST;
-  print_r($post);
   $this->do_upload($post);
   }
   public function approved()
@@ -114,8 +113,6 @@ class Document extends CI_Controller {
               if ( ! $this->upload->do_upload('userfile'))
               {
                       $error = array('error' => $this->upload->display_errors());
-                      echo "<pre>";
-                      print_r($error);
               } else {
                   $data = $this->upload->data();
                   $post['file_url'] = URL_Site . '/' . $path . $data['file_name'];

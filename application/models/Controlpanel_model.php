@@ -161,7 +161,6 @@ class Controlpanel_model extends CI_Model {
     {
 
       $data = array(
-        'id_form'             => $post['id_form'],
         'name_oper'           => $post['name_oper'],
         'course_year'         => $post['course_year'],
         'type_oper'           => $post['type_oper'],
@@ -175,7 +174,8 @@ class Controlpanel_model extends CI_Model {
         'date_complete'       => $post['date_complete'],
         'progress_oper'       => 0
       );
-      $this->db->insert('operations', $data);
+      $this->db->where('id_form',$post['id_form']);
+      $this->db->update('operations', $data);
       $this->update_status_form($post['id_form'],1);
 
       $oper = $this->get_forms_oper_detail($post['id_form']);
@@ -233,6 +233,7 @@ class Controlpanel_model extends CI_Model {
                           user_forms.id_form,
                             user_forms.first_name,
                               user_forms.last_name,');
+      $this->db->where('operations.status_oper>','0');
       $this->db->from('operations');
       $this->db->join('user_forms','user_forms.id_form=operations.id_form');
       $query=$this->db->get();
