@@ -196,7 +196,6 @@ class Controlpanel_model extends CI_Model {
         'type_oper'           => $post['type_oper'],
         'num_form'            => $post['num_form'],
         'num_register'        => $post['num_register'],
-        'status_oper'         => $post['status_oper'],
         'price_oper'          => $post['price_oper'],
         'date_receipt'        => $post['date_receipt'],
         'date_receipt_cpall'  => $post['date_receipt_cpall'],
