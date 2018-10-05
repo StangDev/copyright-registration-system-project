@@ -111,8 +111,12 @@
             <?php if($user['logged_type'] == 'admin'): ?><li><a href="<?=URL_Site?>/controlpanel/document/approved"><span class="menu-text">อนุมัติคำร้อง</span></a></li><?php endif;?>
           </ul>
         </li>
-          <?php if($user['logged_type'] == 'admin'): ?><li><a href="<?=URL_Site?>/controlpanel/process"><i class="menu-icon fa fa-group"></i> <span class="menu-text">ติดตามกระบวนการบุคคล</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
-        </li><?php endif;?>
+          <?php if($user['logged_type'] == 'admin'): ?>
+            <li><a href="<?=URL_Site?>/controlpanel/process"><i class="menu-icon fa fa-group"></i> <span class="menu-text">ติดตามกระบวนการบุคคล</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a></li>
+       <?php endif;?>
+       <?php if($user['logged_type'] == 'user'): ?>
+         <li><a href="<?=URL_Site?>/controlpanel/process/user/<?=$user['logged_user_id']?>"><i class="menu-icon fa fa-group"></i> <span class="menu-text">ติดตามกระบวนการ</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a></li>
+    <?php endif;?>
           <?php if($user['logged_type'] == 'admin'): ?><li><a href="<?=URL_Site?>/controlpanel/search" class=""><i class="menu-icon  fa fa-search"></i> <span class="menu-text">ค้นหาข้อมูลตามรายชื่อ</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
         </li><?php endif;?>
         <?php if($user['logged_type'] == 'user'): ?><li><a href="<?=URL_Site?>/controlpanel/download/success" class=""><i class="menu-icon  fa fa-file-text"></i> <span class="menu-text">ตัวอย่างเอกสาร</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>

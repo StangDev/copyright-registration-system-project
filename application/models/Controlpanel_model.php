@@ -140,14 +140,14 @@ class Controlpanel_model extends CI_Model {
         'form_status'   => 0,
         'insert_time' => date('Y-m-d')
       );
-      echo "<pre>";
+
       $id_form = $this->add_form($data);
 
       $data_oper = array(
         'id_form' => $id_form,
         'name_oper' => $post['name_oper'],
       );
-      print_r($data_oper);
+
       $this->db->insert('operations', $data_oper);
     }
     function add_form($post_data)

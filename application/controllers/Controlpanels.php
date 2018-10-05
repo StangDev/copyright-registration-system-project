@@ -29,7 +29,7 @@ class Controlpanels extends CI_Controller {
 		$this->load->view('template/header',$data);
     if ($_SESSION['logged_type'] == 'user') {
 
-      $this->load->view('menu2/user_process_view');
+      $this->load->view('controlpanel_view_user');
     }else {
       $this->load->view('controlpanel_view');
     }
@@ -158,6 +158,7 @@ class Controlpanels extends CI_Controller {
     $title = $this->uri->segment(1);
     $data  = array('title' => $title.' / setting / admin / insert',
                     'user'=>$_SESSION);
+    $this->load->view('template/header',$data);
     $data  = array('rowdata' =>[]);
     $this->load->view('menu_setting/setting_admin_create_view',$data);
   }
