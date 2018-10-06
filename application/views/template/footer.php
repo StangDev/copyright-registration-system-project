@@ -38,4 +38,8 @@ echo js_asset('admin/site.js');
 echo js_asset('admin/navbar.js');
 echo js_asset('admin/menubar.js');
 ?>
+<script type="text/javascript" src="<?= base_url() ?>assets/lib/DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>assets/lib/DataTables/Buttons-1.5.4/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>assets/lib/DataTables/jszip/jszip.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>assets/lib/DataTables/Buttons-1.5.4/js/buttons.html5.min.js"></script>
 <!-- current page scripts -->

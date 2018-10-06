@@ -21,6 +21,7 @@
   echo css_asset('vendor/bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css');
   echo css_asset('vendor/bower_components/switchery/dist/switchery.min.css');
   echo css_asset('vendor/bower_components/sweetalert/dist/sweetalert.css');
+  echo css_asset('vendor/bower_components/sweetalert/dist/sweetalert.css');
   ?>
   <!-- site-wide styles -->
   <?php
@@ -37,11 +38,15 @@
   echo js_asset('vendor/bower_components/breakpoints.js/dist/breakpoints.min.js');
   echo js_asset('vendor/froala_editor_2.8.5/css/froala_editor.min.css');
   ?>
+    <link rel="stylesheet" href="<?= base_url() ?>assets/lib/DataTables/datatables.min.css" />
+    <link rel="stylesheet" href="<?= base_url() ?>assets/lib/DataTables/Buttons-1.5.4/css/buttons.dataTables.min.css" />
+
     <link rel="stylesheet" href="<?= base_url() ?>assets/js/vendor/froala_editor_2.8.5/css/froala_editor.min.css" />
     <!-- Include all Editor plugins CSS style. -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/js/vendor/froala_editor_2.8.5/css/froala_editor.pkgd.min.css">
 
     <!-- Include Code Mirror CSS. -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600" />
   <script>

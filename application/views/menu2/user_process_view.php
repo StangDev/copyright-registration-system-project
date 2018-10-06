@@ -53,10 +53,10 @@ echo js_asset('vendor/bower_components/jquery.dataTables.js/dataTables.bootstrap
 $(document).ready(function(){
     $('[data-toggle="progressbar"]').tooltip();
     $('#myTable').DataTable( {
+        scrollX: true,
       responsive: true,
       searching: false,
       deferRender:    true,
-      scroller:  true
     } );
 });
 

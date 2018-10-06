@@ -93,7 +93,7 @@ $post =$_POST;
                       <td><?=$value['type_oper']?></td>
                       <td><?=$value['num_form']?></td>
                       <td><?=$value['num_register']?></td>
-                      <td><?=$status_oper[$value['status_oper']]?></td>
+                      <td><?=@$status_oper[@$value['status_oper']]?></td>
                       <td><?=$value['price_oper']?></td>
                       <td><?php if($value['date_receipt']!='0000-00-00'){echo $value['date_receipt'];}else { echo "-";}?></td>
                       <td><?php if($value['date_receipt_cpall']!='0000-00-00'){echo $value['date_receipt_cpall'];}else { echo "-";}?></td>
@@ -107,10 +107,7 @@ $post =$_POST;
   </div>
   </div>
   <!-- /.site-content -->
-<?php
-$this->load->view('template/footer');
-echo js_asset('vendor/bower_components/jquery.dataTables.js/jquery.dataTables.min.js');
-echo js_asset('vendor/bower_components/jquery.dataTables.js/dataTables.bootstrap4.min.js');?>
+<?php $this->load->view('template/footer');?>
 
 <script>
 
@@ -122,7 +119,10 @@ $( document ).ready(function() {
     responsive: true,
     searching: false,
     deferRender:    true,
-    scroller:  true
+    dom: 'Bfrtip',
+    buttons: [
+          'excelHtml5'
+      ]
 } );
 });
 </script>
