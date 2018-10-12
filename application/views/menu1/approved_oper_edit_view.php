@@ -86,6 +86,49 @@
            <div class="col-10"><input class="form-control" name="date_complete" value="" type="date"></div>
            <?php endif;?>
           </div>
+          <div class="card">
+    <div class="card-header">
+    ข้อมูลตัวอย่าง
+    </div>
+    <div class="card-body">
+      <div class="form-group row">
+       <label for="example-text-input" class="col-2 col-form-label" >รายละเอียด :</label>
+       <div class="col-12">
+           <textarea id="Subdetail" name="Subdetail_oper"><?=@$rowdata[0]['Subdetail_oper']?></textarea>
+       </div>
+     </div>
+        <div class="form-group row">
+         <label for="example-text-input" class="col-2 col-form-label" >รูปแนบ :</label>
+         <div class="col-7">
+           <input type="text"  value="<?=@$rowdata[0]['image1']?>" name="image1" hidden>
+           <input type="text"  value="<?=@$rowdata[0]['image2']?>" name="image2" hidden>
+           <input type="text"  value="<?=@$rowdata[0]['image3']?>" name="image3" hidden>
+           <input type="text"  value="<?=@$rowdata[0]['image4']?>" name="image4" hidden>
+           <input type="text"  value="<?=@$rowdata[0]['image5']?>" name="image5" hidden>
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image1" class="custom-file-input" accept="image/*" name="image1" >
+             <span class="custom-file-control" data-content="<?=@$rowdata[0]['image1']?>"></span>
+           </label>
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image2" class="custom-file-input" accept="image/*" name="image2" >
+             <span class="custom-file-control" data-content="<?=@$rowdata[0]['image2']?>"></span>
+           </label>
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image3" class="custom-file-input" accept="image/*" name="image3" >
+             <span class="custom-file-control" data-content="<?=@$rowdata[0]['image3']?>"></span>
+           </label>
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image4" class="custom-file-input" accept="image/*" name="image4" >
+             <span class="custom-file-control" data-content="<?=@$rowdata[0]['image4']?>"></span>
+           </label>
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image5" class="custom-file-input" accept="image/*" name="image5" >
+             <span class="custom-file-control" data-content="<?=@$rowdata[0]['image5']?>"></span>
+           </label>
+         </div>
+       </div>
+    </div>
+  </div>
         </form>
         <div class="mb-5 text-right" style="margin-top:3rem;">
           <button type="button" onclick="submit()" class="btn btn-primary btn-lg">บันทึก</button>
@@ -94,7 +137,10 @@
     </div>
   </div>
   <!-- /.site-content -->
-<?php   $this->load->view('template/footer');?>
+<?php   $this->load->view('template/footer');
+echo js_asset('vendor/froala_editor_2.8.5/js/froala_editor.min.js');
+echo js_asset('vendor/froala_editor_2.8.5/js/froala_editor.pkgd.min.js');
+?>
 <script>
 $("div.stat select").val("<?=@$rowdata[0]['form_type']?>");
 function submit() {
@@ -103,4 +149,21 @@ function submit() {
   $("#formdata").attr('action', url);
   $("#formdata").submit();
 }
+</script>
+
+
+<script>
+
+  $("input[type=file]").change(function () {
+    var fieldVal = $(this).val();
+    if (fieldVal != undefined || fieldVal != "") {
+      $(this).next(".custom-file-control").attr('data-content', fieldVal);
+    }
+  });
+  $(function() {
+    $('textarea#Subdetail').froalaEditor({
+      toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'fontFamily', 'fontSize', '|', 'color', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertTable', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
+    });
+  });
+
 </script>

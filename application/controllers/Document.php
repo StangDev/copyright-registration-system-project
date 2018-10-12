@@ -13,6 +13,7 @@ class Document extends CI_Controller {
          $this->load->model('Controlpanel_model');
          $this->load->helper("file");
          $this->load->library('session');
+         $this->load->helper('path');
 
          if (!isset($_SESSION['logged_in'])){
 
@@ -82,6 +83,21 @@ class Document extends CI_Controller {
   public function approved_form_insert()
   {
     $post = $_POST;
+    $config['upload_path']          =  'assets/uploads/temp/';
+    $config['allowed_types']        = 'gif|jpg|png';
+    $config['max_size']             = 1000;
+    $this->load->library('upload', $config);
+    $file = array();
+
+    foreach($_FILES as $key=>$val){
+      if(!$this->upload->do_upload($key)){
+          $file[$key] = $this->upload->display_errors();
+      }else{
+          $file[$key] = $this->upload->data();
+          $post[$key] =  base_url().'assets/uploads/temp/'. $this->upload->data('file_name');
+      }
+    }
+
     $this->Controlpanel_model->approved_form_insert($post);
     redirect(URL_Site."/controlpanel/document/approved");
     exit(0);
@@ -89,6 +105,23 @@ class Document extends CI_Controller {
   public function approved_form_update()
   {
     $post = $_POST;
+    $config['upload_path']          =  'assets/uploads/temp/';
+    $config['allowed_types']        = 'gif|jpg|png';
+    $config['max_size']             = 1000;
+    $this->load->library('upload', $config);
+    $file = array();
+    foreach($_FILES as $key=>$val){
+
+      if ($val['size']>0){
+        if(!$this->upload->do_upload($key)){
+            $file[$key] = $this->upload->display_errors();
+        }else{
+            $file[$key] = $this->upload->data();
+            $post[$key] =  base_url().'assets/uploads/temp/'. $this->upload->data('file_name');
+        }
+      }
+    }
+
     $this->Controlpanel_model->approved_form_oper_update($post);
     redirect(URL_Site."/controlpanel/process");
     exit(0);

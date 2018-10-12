@@ -63,6 +63,7 @@ $route['controlpanel/process'] = 'Controlpanels/process';
 $route['controlpanel/process/user/(:any)'] = 'Controlpanels/user_process_view';
 $route['controlpanel/download'] = 'Controlpanels/download_document';
 $route['controlpanel/download/success'] = 'Controlpanels/download_document_success';
+$route['controlpanel/download/get_form_bydownloadByid/(:any)'] = 'Controlpanels/download_document_success_getByid';
 $route['controlpanel/process/detail/(:any)'] = 'Controlpanels/process_detail';
 $route['controlpanel/process/detail/insert/(:any)'] = 'Controlpanels/process_detail_insert';
 

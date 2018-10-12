@@ -102,6 +102,12 @@ class Controlpanels extends CI_Controller {
     $this->load->view('template/header',$data);
     $this->load->view('menu4/download_document_success_view');
   }
+  public function download_document_success_getByid()
+  {
+    $id = $this->uri->segment(4);
+    $rowdata = $this->Controlpanel_model->get_form_bydownloadByid($id);
+    echo json_encode($rowdata);
+  }
   function debug_to_console( $data ) {
     $output = $data;
     if ( is_array( $output ) )

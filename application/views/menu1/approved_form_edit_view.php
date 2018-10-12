@@ -86,45 +86,46 @@
            <div class="col-10"><input class="form-control" name="date_complete" value="" type="date"></div>
            <?php endif;?>
           </div>
-        </form>
-        <div class="card">
-  <div class="card-header">
-  ข้อมูลตัวอย่าง
-  </div>
-  <div class="card-body">
-    <div class="form-group row">
-     <label for="example-text-input" class="col-2 col-form-label" >รายละเอียด :</label>
-     <div class="col-12">
-         <textarea id="Subdetail" name="Subdetail"></textarea>
-     </div>
-   </div>
+          <div class="card">
+    <div class="card-header">
+    ข้อมูลตัวอย่าง
+    </div>
+    <div class="card-body">
       <div class="form-group row">
-       <label for="example-text-input" class="col-2 col-form-label" >รูปแนบ :</label>
-       <div class="col-7">
-         <label class="custom-file col-7 mb-1">
-           <input type="file" id="image1" class="custom-file-input" accept="image/*" name="image1" >
-           <span class="custom-file-control" data-content="Choose file..."></span>
-         </label>
-         <label class="custom-file col-7 mb-1">
-           <input type="file" id="image2" class="custom-file-input" accept="image/*" name="image2" >
-           <span class="custom-file-control" data-content="Choose file..."></span>
-         </label>
-         <label class="custom-file col-7 mb-1">
-           <input type="file" id="image3" class="custom-file-input" accept="image/*" name="image3" >
-           <span class="custom-file-control" data-content="Choose file..."></span>
-         </label>
-         <label class="custom-file col-7 mb-1">
-           <input type="file" id="image4" class="custom-file-input" accept="image/*" name="image4" >
-           <span class="custom-file-control" data-content="Choose file..."></span>
-         </label>
-         <label class="custom-file col-7 mb-1">
-           <input type="file" id="image5" class="custom-file-input" accept="image/*" name="image5" >
-           <span class="custom-file-control" data-content="Choose file..."></span>
-         </label>
+       <label for="example-text-input" class="col-2 col-form-label" >รายละเอียด :</label>
+       <div class="col-12">
+           <textarea id="Subdetail" name="Subdetail_oper"></textarea>
        </div>
      </div>
+        <div class="form-group row">
+         <label for="example-text-input" class="col-2 col-form-label" >รูปแนบ :</label>
+         <div class="col-7">
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image1" class="custom-file-input" accept="image/*" name="image1" >
+             <span class="custom-file-control" data-content="Choose file..."></span>
+           </label>
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image2" class="custom-file-input" accept="image/*" name="image2" >
+             <span class="custom-file-control" data-content="Choose file..."></span>
+           </label>
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image3" class="custom-file-input" accept="image/*" name="image3" >
+             <span class="custom-file-control" data-content="Choose file..."></span>
+           </label>
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image4" class="custom-file-input" accept="image/*" name="image4" >
+             <span class="custom-file-control" data-content="Choose file..."></span>
+           </label>
+           <label class="custom-file col-7 mb-1">
+             <input type="file" id="image5" class="custom-file-input" accept="image/*" name="image5" >
+             <span class="custom-file-control" data-content="Choose file..."></span>
+           </label>
+         </div>
+       </div>
+    </div>
   </div>
-</div>
+        </form>
+
         <div class="mb-5 text-right" style="margin-top:3rem;">
           <button type="button" onclick="submit()" class="btn btn-primary btn-lg">อนุมัติ</button>
           <button type="button" onclick="location.reload();" class="btn btn-light btn-lg">ยกเลิก</button>
