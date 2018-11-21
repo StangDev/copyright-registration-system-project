@@ -335,10 +335,10 @@ class Controlpanel_model extends CI_Model {
     {
       if (count($post)>0) {
         if ($post['first_name']!="") {
-        $this->db->like('first_name',$post['first_name']);
+        $this->db->like('first_name',trim($post['first_name']," "));
         }
         if ($post['last_name']!="") {
-        $this->db->like('last_name',$post['last_name']);
+        $this->db->like('last_name',trim($post['last_name']," "));
         }
         if ($post['type_form']!="") {
         $this->db->where('form_type',$post['type_form']);
@@ -371,7 +371,7 @@ class Controlpanel_model extends CI_Model {
       $this->db->join('user_forms','user_forms.id_form=operations.id_form');
       $query=$this->db->get();
     //$this->output->enable_profiler(true);
-    //echo $this->db->last_query();
+      //echo $this->db->last_query();
       return $query->result_array();
 
     }
