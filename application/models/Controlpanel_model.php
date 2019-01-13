@@ -25,16 +25,14 @@ class Controlpanel_model extends CI_Model {
     {
       $data = array(
         'user_name' => $post['username'],
-        'user_pass' => $post['password'],
         'user_first_name' => $post['first_name'],
         'user_last_name' => $post['last_name'],
         'user_level' => $post['level'],
-        'user_location' => $post['location'],
-        'create_date' => date('Y-m-d')
+        'user_location' => $post['location']
       );
       $this->db->where('user_id',$post['id']);
       $this->db->update('user', $data);
-      //$sql = $this->db->last_query(); แสดง query
+      //$sql = $this->db->last_query(); //แสดง query
     }
     public function create_account_user($post=array())
     {
@@ -89,10 +87,17 @@ class Controlpanel_model extends CI_Model {
     }
     public function get_forms()
     {
-      $this->db->select('*')
-              ->from('user_forms')
-              ->where('form_status',0);
-      $rowdata =  $this->db->get();
+      $this->db->select('operations.name_oper,
+                        user_forms.form_type,
+                          user_forms.first_name,
+                            user_forms.last_name,
+                              user_forms.location,
+                                user_forms.id_form,
+                                  user_forms.level');
+      $this->db->from('operations');
+      $this->db->where('user_forms.form_status',0);
+      $this->db->join('user_forms','user_forms.id_form=operations.id_form', 'left');
+      $rowdata = $this->db->get();
 
       return $rowdata->result_array();
     }
@@ -133,15 +138,23 @@ class Controlpanel_model extends CI_Model {
         'level'       => $post['level'],
         'form_type'   => $post['type_form'],
         'location'    => $post['location'],
-        'file_url'    => $post['file_url'],
-        'file_path'   => $post['file_path'],
-        'file_regis_url'    => $post['file_regis_url'],
-        'file_regis_path'   => $post['file_regis_path'],
         'form_status'   => 0,
         'insert_time' => date('Y-m-d')
       );
 
       $id_form = $this->add_form($data);
+
+      foreach($post['file'] as $key=>$val){
+         $form_file = array(
+                       'id_form' => $id_form ,
+                       'name' => $val['data']['file_name'],
+                       'url' => $val['url'],
+                       'path' => $val['data']['full_path'],
+                       'type' => $key,
+                       'create_date'=> date('Y-m-d')
+                     );
+        $this->db->insert('user_form_files', $form_file);
+      }
 
       $data_oper = array(
         'id_form' => $id_form,
@@ -149,6 +162,142 @@ class Controlpanel_model extends CI_Model {
       );
 
       $this->db->insert('operations', $data_oper);
+    }
+    public function form_draft_insert($post=array())
+    {
+
+      $data = array(
+        'user_id'     => $post['user_id'],
+        'first_name'  => $post['first_name'],
+        'last_name'   => $post['last_name'],
+        'level'       => $post['level'],
+        'form_type'   => $post['type_form'],
+        'location'    => $post['location'],
+        'form_status'   => 2,
+        'insert_time' => date('Y-m-d')
+      );
+
+      $id_form = $this->add_form($data);
+
+      foreach($post['file'] as $key=>$val){
+         $form_file = array(
+                       'id_form' => $id_form ,
+                       'name' => $val['data']['file_name'],
+                       'url' => $val['url'],
+                       'path' => $val['data']['full_path'],
+                       'type' => $key,
+                       'create_date'=> date('Y-m-d')
+                     );
+        $this->db->insert('user_form_files', $form_file);
+      }
+
+      $data_oper = array(
+        'id_form' => $id_form,
+        'name_oper' => $post['name_oper'],
+      );
+
+      $this->db->insert('operations', $data_oper);
+    }
+    public function form_update($post=array())
+    {
+
+      $data = array(
+        'user_id'     => $post['user_id'],
+        'first_name'  => $post['first_name'],
+        'last_name'   => $post['last_name'],
+        'level'       => $post['level'],
+        'form_type'   => $post['type_form'],
+        'location'    => $post['location'],
+        'form_status'   => 0,
+        'insert_time' => date('Y-m-d')
+      );
+      $this->db->where('id_form',$post['id_form']);
+      $this->db->update('user_forms', $data);
+        foreach($post['file'] as $key=>$val){
+          if ($post['file'][$key]) {
+            $this->db->select('type')
+                    ->from('user_form_files')
+                    ->where('id_form',$post['id_form'])
+                    ->where('type',$key);
+            $rowdata =  $this->db->get()->result_array();
+            if (count($rowdata)>0) {
+              $form_file = array(
+                            'name' => $val['data']['file_name'],
+                            'url' => $val['url'],
+                            'path' => $val['data']['full_path']
+                          );
+                          $this->db->where('id_form',$post['id_form']);
+                          $this->db->where('type',$key);
+                          $this->db->update('user_form_files', $form_file);
+            } else {
+              $form_file = array(
+                            'id_form' => $post['id_form'] ,
+                            'name' => $val['data']['file_name'],
+                            'url' => $val['url'],
+                            'path' => $val['data']['full_path'],
+                            'type' => $key,
+                            'create_date'=> date('Y-m-d')
+                          );
+            $this->db->insert('user_form_files', $form_file);
+            }
+          }
+        }
+      $data_oper = array(
+        'name_oper' => $post['name_oper'],
+      );
+      $this->db->where('id_form',$post['id_form']);
+      $this->db->update('operations', $data_oper);
+    }
+    public function form_draft_update($post=array())
+    {
+
+      $data = array(
+        'user_id'     => $post['user_id'],
+        'first_name'  => $post['first_name'],
+        'last_name'   => $post['last_name'],
+        'level'       => $post['level'],
+        'form_type'   => $post['type_form'],
+        'location'    => $post['location'],
+        'form_status'   => 2,
+        'insert_time' => date('Y-m-d')
+      );
+      $this->db->where('id_form',$post['id_form']);
+      $this->db->update('user_forms', $data);
+        foreach($post['file'] as $key=>$val){
+              if ($post['file'][$key]) {
+                $this->db->select('type')
+                        ->from('user_form_files')
+                        ->where('id_form',$post['id_form'])
+                        ->where('type',$key);
+                $rowdata =  $this->db->get()->result_array();
+                if (count($rowdata)>0) {
+                  $form_file = array(
+                                'name' => $val['data']['file_name'],
+                                'url' => $val['url'],
+                                'path' => $val['data']['full_path']
+                              );
+                              $this->db->where('id_form',$post['id_form']);
+                              $this->db->where('type',$key);
+                              $this->db->update('user_form_files', $form_file);
+                } else {
+                  $form_file = array(
+                                'id_form' => $post['id_form'] ,
+                                'name' => $val['data']['file_name'],
+                                'url' => $val['url'],
+                                'path' => $val['data']['full_path'],
+                                'type' => $key,
+                                'create_date'=> date('Y-m-d')
+                              );
+                $this->db->insert('user_form_files', $form_file);
+                }
+              }
+        }
+
+      $data_oper = array(
+        'name_oper' => $post['name_oper'],
+      );
+      $this->db->where('id_form',$post['id_form']);
+      $this->db->update('operations', $data_oper);
     }
     function add_form($post_data)
     {
@@ -365,8 +514,7 @@ class Controlpanel_model extends CI_Model {
                         user_forms.form_type,
                           user_forms.first_name,
                             user_forms.last_name,
-                              user_forms.location,
-                                user_forms.file_url,');
+                              user_forms.location,');
       $this->db->from('operations');
       $this->db->join('user_forms','user_forms.id_form=operations.id_form');
       $query=$this->db->get();
@@ -468,8 +616,7 @@ class Controlpanel_model extends CI_Model {
                         user_forms.form_type,
                           user_forms.first_name,
                             user_forms.last_name,
-                              user_forms.location,
-                                user_forms.file_url,');
+                              user_forms.location,');
       $this->db->from('operations');
       $this->db->where('status_oper',5);
       $this->db->join('user_forms','user_forms.id_form=operations.id_form');
@@ -551,7 +698,67 @@ class Controlpanel_model extends CI_Model {
 
       return $rowdata->result_array();
     }
+    public function get_form_draft($id)
+    {
+      $rowdata = array();
+      $this->db->select('operations.course_year,
+                            operations.name_oper,
+                        user_forms.form_type,
+                          user_forms.first_name,
+                            user_forms.last_name,
+                              user_forms.location,
+                                user_forms.id_form,
+                                  user_forms.level');
+      $this->db->from('operations');
+      $this->db->where('user_forms.id_form',$id);
+      $this->db->join('user_forms','user_forms.id_form=operations.id_form', 'left');
+      $query = $this->db->get();
+      $rowdata['data'] = $query->result_array();
+      $this->db->select('id,
+                          name,
+                            url,
+                              path,
+                                type');
+      $this->db->from('user_form_files');
+      $this->db->where('id_form',$id);
+      $query2 = $this->db->get();
+      $rowdata['file'] = $query2->result_array();
 
+      return $rowdata;
+    }
+    public function get_list_form_draft($user)
+    {
+      $this->db->select('operations.course_year,
+                            operations.name_oper,
+                        user_forms.form_type,
+                          user_forms.first_name,
+                            user_forms.last_name,
+                              user_forms.location,
+                                user_forms.insert_time,
+                                  user_forms.id_form');
+      $this->db->from('operations');
+      $this->db->where('user_forms.user_id',$user);
+      $this->db->where('user_forms.form_status',2);
+      $this->db->join('user_forms','user_forms.id_form=operations.id_form', 'left');
+      $query = $this->db->get();
+
+      return $query->result_array();
+    }
+    public function get_list_document($id)
+    {
+      $this->db->select('user_forms.id_form,
+                          user_forms.form_type,
+                            user_form_files.name,
+                              user_form_files.url,
+                                user_form_files.type');
+      $this->db->from('user_form_files');
+      $this->db->where('user_form_files.id_form',$id);
+      $this->db->join('user_forms','user_forms.id_form=user_form_files.id_form', 'left');
+      $this->db->order_by("user_form_files.type", "asc");
+      $query = $this->db->get();
+
+      return $query->result_array();
+    }
 
 }
  ?>

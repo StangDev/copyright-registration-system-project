@@ -29,12 +29,12 @@
             <td><?=@$value['name_oper']?></td>
             <td>
               <div class="progress progress-xs"  title="<?=@$value['progress_oper']?>%" data-toggle="progressbar">
-                <div class="progress-bar" role="progressbar" style="width: <?=@$value['progress_oper']?>%" aria-valuenow="<?=@$value['progress_oper']?>" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" style="width: <?=@$value['progress_oper']?>%" aria-valuenow="<?=@$value['progress_oper']?>" aria-valuemin="0" aria-valuemax="100"><?=@$value['progress_oper']?>%</div>
               </div>
             </td>
             <td><span class="dash1-tasks-peitycharts"><?=@$form_type[$value['form_type']]?></span></td>
             <td><?=@$value['first_name']?> <?=@$value['last_name']?></td>
-            <td><span class="badge <?=@$color_status[$value['status_oper']]?> p-2"><?=@$status_oper[$value['status_oper']]?></span></td>
+            <td><?=@$status_oper[$value['status_oper']]?></td>
             <td width="10%">
               <a href="<?=URL_Site?>/controlpanel/process/detail/<?=@$value['id_form']?>" class="btn btn-light btn-sm ml-2">รายละเอียด</a>
             </td>

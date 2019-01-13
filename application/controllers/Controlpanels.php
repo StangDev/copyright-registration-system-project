@@ -178,12 +178,12 @@ class Controlpanels extends CI_Controller {
     }
     $title = $this->uri->segment(1);
     $id = $this->uri->segment(5);
-    $data  = array('title' => $title.' / setting / admin / insert',
+    $data  = array('title' => $title.' / setting / admin / update',
                     'user'=>$_SESSION);
     $this->load->view('template/header',$data);
     $rowdata =  $this->Controlpanel_model->get_account_userById($id);
     $data  = array('rowdata' =>$rowdata[0]);
-    $this->load->view('menu_setting/setting_admin_create_view',$data);
+    $this->load->view('menu_setting/setting_admin_update_view',$data);
   }
   public function setting_user()
   {
@@ -198,17 +198,17 @@ class Controlpanels extends CI_Controller {
     $post = $_POST;
     if (count($post)>0) {
       $this->Controlpanel_model->update_account($post);
-      redirect(URL_Site."/controlpanel/setting/admin");
+      redirect(URL_Site."/controlpanel/setting/user");
       exit(0);
     }
     $title = $this->uri->segment(1);
     $id = $this->uri->segment(5);
-    $data  = array('title' => $title.' / setting / admin / insert',
+    $data  = array('title' => $title.' / setting / user / update ',
                     'user'=>$_SESSION);
     $this->load->view('template/header',$data);
     $rowdata =  $this->Controlpanel_model->get_account_userById($id);
     $data  = array('rowdata' =>$rowdata[0]);
-    $this->load->view('menu_setting/setting_user_create_view',$data);
+    $this->load->view('menu_setting/setting_user_update_view',$data);
   }
   public function setting_user_insert()
   {

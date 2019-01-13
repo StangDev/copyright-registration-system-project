@@ -1,25 +1,23 @@
-
-  <div class="site-content">
-    <h2>ฟอร์มยื่นคำร้อง</h2>
-    <p>หน้ากรอกรายละเอียดผู้ยื่นขอและเอกสารคำร้อง</p>
+<div class="site-content">
 <div class="card" >
   <div style="padding: 50px;">
     <form action="" id="formdata" method="post" enctype="multipart/form-data">
       <input type="text" value="<?=@$_SESSION['logged_user']?>"  name="user_id" style="display: none;">
+      <input type="text" value="<?=@$rowdata['id_form']?>"  name="id_form" style="display: none;">
        <div class="form-group row">
         <label for="example-text-input" class="col-2 col-form-label" >ชื่อผลงาน :</label>
         <div class="col-6">
-          <input class="form-control" type="text" value="" placeholder="" name="name_oper">
+          <input class="form-control" type="text" value="<?=@$rowdata['name_oper']?>" placeholder="" name="name_oper">
         </div>
       </div>
       <div class="form-group row">
         <label for="example-text-input" class="col-2 col-form-label" >ชื่อ :</label>
         <div class="col-3">
-          <input class="form-control" type="text" value="<?=@$rowdata['user_first_name']?>" placeholder="" name="first_name">
+          <input class="form-control" type="text" value="<?=@$rowdata['first_name']?>" placeholder="" name="first_name">
         </div>
         <label for="example-text-input" class="col-2 col-form-label" >นามสกุล :</label>
         <div class="col-3">
-          <input class="form-control" type="text" value="<?=@$rowdata['user_last_name']?>" placeholder="" name="last_name">
+          <input class="form-control" type="text" value="<?=@$rowdata['last_name']?>" placeholder="" name="last_name">
         </div>
       </div>
       <div class="form-group row">
@@ -119,9 +117,9 @@
 </div>
 </div>
 <div class="mb-5 text-right" style="margin-right:3rem;margin-top:3rem;">
-    <button type="button" onclick="location.reload();" class="btn btn-danger btn-lg ">ยกเลิก</button>
-    <button type="button" onclick="submit('draft')" class="btn btn-primary btn-lg mr-2 ml-2">บันทึก</button>
-    <button type="button" onclick="submit('insert')" class="btn btn-success btn-lg">ส่งคำร้อง</button>
+  <button type="button" onclick="location.reload();" class="btn btn-danger btn-lg ">ยกเลิก</button>
+  <button type="button" onclick="submit('draft')" class="btn btn-primary btn-lg mr-2 ml-2">บันทึก</button>
+  <button type="button" onclick="submit('insert')" class="btn btn-success btn-lg">ส่งคำร้อง</button>
 
 </div>
   <!-- /.site-content -->
@@ -129,16 +127,21 @@
 <script>
 $( document ).ready(function() {
 
-  <?php if(@$rowdata['user_level'] !== '' && count($rowdata) >0):?>
-  $("#level").val('<?=@$rowdata['user_level']?>');
+  <?php if(@$rowdata['level'] !== '' && count($rowdata) >0):?>
+  $("#level").val('<?=@$rowdata['level']?>');
   <?php endif;?>
-  <?php if(@$rowdata['user_location'] !== '' && count($rowdata) >0):?>
-  $("#location").val('<?=@$rowdata['user_location']?>');
+  <?php if(@$rowdata['location'] !== '' && count($rowdata) >0):?>
+  $("#location").val('<?=@$rowdata['location']?>');
   <?php endif;?>
-
+  <?php if(@$rowdata['location'] !== '' && count($rowdata) >0):?>
+  $("#location").val('<?=@$rowdata['location']?>');
+  <?php endif;?>
+  <?php if(@$rowdata['form_type'] !== '' && count($rowdata) >0):?>
+    $(".typeFormSelect").val('<?=@$rowdata['form_type']?>');
+    insertfile('<?=@$rowdata['form_type']?>');
+  <?php endif;?>
 
 });
-
 function submit(typeAdd) {
       var type = $('.typeFormSelect').val();
       var i;
@@ -157,14 +160,18 @@ function submit(typeAdd) {
           break;
         }
         if (typeAdd == 'draft') {
-          var url ='<?=URL_Site?>/controlpanel/document/form/draft/insert';
+          var url ='<?=URL_Site?>/controlpanel/document/form/draft/update';
           $("#formdata").attr('action', url);
           $("#formdata").submit();
         }else {
           for (i = 1; i <= ifi; i++) {
-              var data = $('#file_'+i).val();
-              console.log(data);
-              if (!data && fileOk != false) {
+              var data = $('#file_'+i).next(".custom-file-control").attr('fileIs');
+              var data_val = $('#file_'+i).val();
+              console.log('data',data);
+              console.log('data_val',data_val);
+              if (data_val  || data ) {
+                fileOk = true;
+              }else {
                 fileOk = false;
                 swal ( "Oops" ,  "เอกสารประกอบการพิจารณาไม่ครบตามเงื่อนไข!" ,  "error" );
               }
@@ -174,7 +181,7 @@ function submit(typeAdd) {
               if (fileOk) {
               //var forms=($('#formdata').serialize());
                 if(typeAdd == 'insert'){
-                  var url ='<?=URL_Site?>/controlpanel/document/form/insert';
+                  var url ='<?=URL_Site?>/controlpanel/document/form/update';
                   $("#formdata").attr('action', url);
                   $("#formdata").submit();
                 }else {
@@ -191,6 +198,7 @@ function submit(typeAdd) {
 
 
 }
+
 
 $( ".typeFormSelect" ).change(function() {
   var data = $(".typeFormSelect").val();
@@ -305,5 +313,24 @@ function inputFileName(id) {
         element.setAttribute("style","color: rgb(37, 174, 136); --darkreader-inline-color:#a7ffe4;");
         document.getElementById("Div_"+id.name).appendChild(element);
   }
+}
+function insertfile(type) {
+  docInputupload(type);
+  var jsondata;
+  <?php if(!empty($filedata)):?>
+      jsondata =<?=@$filedata?>;
+  <?php endif;?>
+  setTimeout(function(){
+      console.log(jsondata);
+      $(jsondata).each(function( key ,val ) {
+          $('#'+val.type).next(".custom-file-control").attr('data-content', val.name);
+          $('#'+val.type).next(".custom-file-control").attr('fileIs', true);
+          var element = document.createElement("i");
+              element.setAttribute("class","fa fa-check-circle fa-3x");
+              element.setAttribute("aria-hidden","true");
+              element.setAttribute("style","color: rgb(37, 174, 136); --darkreader-inline-color:#a7ffe4;");
+              document.getElementById("Div_"+val.type).appendChild(element);
+      });
+    }, 1000);
 }
 </script>

@@ -13,6 +13,7 @@
   <?php
   echo css_asset('admin/theme-customizer.css');
   echo js_asset('admin/theme-customizer.js');
+  echo js_asset('vendor/bower_components/breakpoints.js/dist/breakpoints.min.js');
   ?>
   <!-- core plugins -->
   <?php
@@ -35,15 +36,15 @@
   echo css_asset('admin/form.wysiwyg-editor.css');
   echo css_asset('vendor/bower_components/font-awesome/css/font-awesome.min.css');
   echo css_asset('vendor/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.css');
-  echo js_asset('vendor/bower_components/breakpoints.js/dist/breakpoints.min.js');
-  echo js_asset('vendor/froala_editor_2.8.5/css/froala_editor.min.css');
+  echo css_asset('vendor/froala_editor/css/froala_editor.min.css');
+    echo css_asset('vendor/froala_editor/css/froala_editor.pkgd.min.css');
   ?>
     <link rel="stylesheet" href="<?= base_url() ?>assets/lib/DataTables/datatables.min.css" />
     <link rel="stylesheet" href="<?= base_url() ?>assets/lib/DataTables/Buttons-1.5.4/css/buttons.dataTables.min.css" />
 
-    <link rel="stylesheet" href="<?= base_url() ?>assets/js/vendor/froala_editor_2.8.5/css/froala_editor.min.css" />
+
     <!-- Include all Editor plugins CSS style. -->
-    <link rel="stylesheet" href="<?= base_url() ?>assets/js/vendor/froala_editor_2.8.5/css/froala_editor.pkgd.min.css">
+
 
     <!-- Include Code Mirror CSS. -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
@@ -113,6 +114,7 @@
         <li><a href="javascript:void(0)" class="submenu-toggle"><i class="menu-icon zmdi zmdi-dropbox zmdi-hc-lg"></i> <span class="menu-text">ประสงค์ยื่นคำร้อง</span> <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i></a>
           <ul class="submenu">
             <li><a href="<?=URL_Site?>/controlpanel/document/form"><span class="menu-text">ยื่นคำร้อง</span></a></li>
+              <li><a href="<?=URL_Site?>/controlpanel/document/form/draft"><span class="menu-text">รายการแบบร่าง</span></a></li>
             <?php if($user['logged_type'] == 'admin'): ?><li><a href="<?=URL_Site?>/controlpanel/document/approved"><span class="menu-text">อนุมัติคำร้อง</span></a></li><?php endif;?>
           </ul>
         </li>

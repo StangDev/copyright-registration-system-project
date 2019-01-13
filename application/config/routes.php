@@ -76,6 +76,12 @@ $route['controlpanel/document/approved/form/insert'] = 'Document/approved_form_i
 $route['controlpanel/document/approved/form/update'] = 'Document/approved_form_update';
 $route['controlpanel/document/form'] = 'Document/form';
 $route['controlpanel/document/form/insert'] = 'Document/form_insert';
+$route['controlpanel/document/form/update'] = 'Document/form_update';
+$route['controlpanel/document/form/draft'] = 'Document/form_draft';
+$route['controlpanel/document/form/draft/insert'] = 'Document/form_draft_insert';
+$route['controlpanel/document/form/draft/update'] = 'Document/form_draft_update';
+$route['controlpanel/document/form/draft/edit/(:any)'] = 'Document/form_draft_edit';
+$route['controlpanel/document/getListDoc/(:any)'] = 'Document/get_list_document';
 
 /////// Setting Controller ///////////////
 

@@ -77,7 +77,7 @@
                <div class="col-10"><input class="form-control" name="date_receipt_agency" value="<?=@$rowdata[0]['date_receipt_agency']?>" type="date"></div>
             <?php else:?>
            <div class="col-10"><input class="form-control" name="date_receipt_agency" value="" type="date"></div>
-         <?php endif;?>s
+         <?php endif;?>
           </div>
           <div class="form-group row"><label class="col-2 col-form-label" for="example-text-input">วันที่จดเสร็จ</label>
             <?php if(@$rowdata[0]['date_complete'] !== '0000-00-00'):?>

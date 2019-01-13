@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2018 at 09:08 PM
+-- Generation Time: Jan 13, 2019 at 07:10 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -80,21 +80,22 @@ CREATE TABLE `user` (
   `user_name` varchar(255) DEFAULT NULL,
   `user_pass` varchar(255) DEFAULT NULL,
   `user_type` varchar(255) DEFAULT NULL,
-  `user_status` varchar(255) DEFAULT NULL,
-  `create_date` date DEFAULT NULL,
   `user_first_name` varchar(255) DEFAULT NULL,
   `user_last_name` varchar(255) DEFAULT NULL,
   `user_level` varchar(10) DEFAULT NULL,
-  `user_location` varchar(255) DEFAULT NULL
+  `user_location` varchar(255) DEFAULT NULL,
+  `user_status` varchar(255) DEFAULT NULL,
+  `create_date` date DEFAULT NULL,
+  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_type`, `user_status`, `create_date`, `user_first_name`, `user_last_name`, `user_level`, `user_location`) VALUES
-(1, 'admin', 'admin', 'admin', '1', '2018-03-20', NULL, NULL, NULL, NULL),
-(4, 'user', 'user', 'user', '1', '2018-03-31', NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_type`, `user_first_name`, `user_last_name`, `user_level`, `user_location`, `user_status`, `create_date`, `update_date`) VALUES
+(1, 'admin', 'admin', 'admin', 'tanakorn', 'norsuwan', '1', 'คณะวิศวกรรมศาสตร์และเทคโนโลยี', '1', '2018-03-20', '2019-01-13 05:33:01'),
+(4, 'user', 'user', 'user', 'wararat', 'khota', '0', 'คณะการจัดการธุรกิจอาหาร', '1', '2018-03-31', '2019-01-13 05:38:09');
 
 -- --------------------------------------------------------
 
@@ -111,12 +112,24 @@ CREATE TABLE `user_forms` (
   `form_type` varchar(10) DEFAULT NULL,
   `form_status` int(11) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
-  `file_url` varchar(255) DEFAULT NULL,
-  `file_path` varchar(255) DEFAULT NULL,
   `insert_time` date DEFAULT NULL,
-  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `file_regis_url` varchar(255) DEFAULT NULL,
-  `file_regis_path` varchar(255) DEFAULT NULL
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_form_files`
+--
+
+CREATE TABLE `user_form_files` (
+  `id` int(11) NOT NULL,
+  `id_form` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `url` varchar(1000) DEFAULT NULL,
+  `path` varchar(1000) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `create_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -163,6 +176,12 @@ ALTER TABLE `user_forms`
   ADD PRIMARY KEY (`id_form`);
 
 --
+-- Indexes for table `user_form_files`
+--
+ALTER TABLE `user_form_files`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_view_edit`
 --
 ALTER TABLE `user_view_edit`
@@ -188,13 +207,19 @@ ALTER TABLE `operations`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_forms`
 --
 ALTER TABLE `user_forms`
   MODIFY `id_form` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_form_files`
+--
+ALTER TABLE `user_form_files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
