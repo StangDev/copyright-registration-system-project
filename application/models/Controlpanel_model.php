@@ -14,6 +14,7 @@ class Controlpanel_model extends CI_Model {
         'user_last_name' => $post['last_name'],
         'user_level' => $post['level'],
         'user_location' => $post['location'],
+        'user_email' => $post['email'],
         'user_type' => 'admin',
         'user_status' => 1,
         'create_date' => date('Y-m-d')
@@ -28,7 +29,9 @@ class Controlpanel_model extends CI_Model {
         'user_first_name' => $post['first_name'],
         'user_last_name' => $post['last_name'],
         'user_level' => $post['level'],
-        'user_location' => $post['location']
+        'user_location' => $post['location'],
+        'user_email' => $post['email'],
+        'user_noti' => $post['noti'],
       );
       $this->db->where('user_id',$post['id']);
       $this->db->update('user', $data);
@@ -346,6 +349,7 @@ class Controlpanel_model extends CI_Model {
     {
 
       $data = array(
+        'status_oper'         => $post['status_oper'],
         'name_oper'           => $post['name_oper'],
         'course_year'         => $post['course_year'],
         'type_oper'           => $post['type_oper'],
@@ -728,6 +732,7 @@ class Controlpanel_model extends CI_Model {
     }
     public function get_list_form_draft($user)
     {
+      $_SESSION['logged_user'];
       $this->db->select('operations.course_year,
                             operations.name_oper,
                         user_forms.form_type,
@@ -758,6 +763,42 @@ class Controlpanel_model extends CI_Model {
       $query = $this->db->get();
 
       return $query->result_array();
+    }
+    public function get_list_admin_noti()
+    {
+      $this->db->select('user_email');
+      $this->db->from('user');
+      $this->db->where('user_noti',1);
+      $query = $this->db->get();
+
+      return $query->result_array();
+    }
+    public function check_status_oper($value)
+    {
+      $this->db->select('status_oper');
+      $this->db->from('operations');
+      $this->db->where('status_oper',$value);
+      $query = $this->db->get()->result_array();
+      if (count($query)>0) {
+        return true;
+      } else {
+        return false;
+      }
+
+    }
+    public function get_userByusername($id)
+    {
+
+      $this->db->select('user.user_name,
+                          user.user_email,
+                            user.user_first_name,
+                              user.user_last_name');
+      $this->db->from('user');
+      $this->db->where('user_forms.id_form',$id);
+      $this->db->join('user_forms','user.user_name=user_forms.user_id', 'left');
+      $rowdata =  $this->db->get();
+
+      return $rowdata->result_array();
     }
 
 }

@@ -34,6 +34,12 @@
           </div>
         </div>
         <div class="form-group row">
+          <label for="example-text-input" class="col-2 col-form-label">อีเมล :</label>
+          <div class="col-7">
+              <input class="form-control" type="email" value="<?=@$rowdata['user_email']?>" placeholder="" name="email">
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="example-text-input" class="col-2 col-form-label" >ตำแหน่ง :</label>
           <div class="col-7">
             <select name="level" class="form-control" id="level">
@@ -85,6 +91,14 @@
               </select>
           </div>
         </div>
+        <div class="form-group row">
+          <label  class="col-2 col-form-label" >รับการแจ้งเตือน :</label>
+          <div class="col-7">
+            <input type="checkbox" class="form-check-input"  id="user_noti">
+            <input type="hidden" name="noti" id="user_noti_txt" value="<?=@$rowdata['user_noti']?>">
+          </div>
+        </div>
+
         </form>
       </div>
     </div>
@@ -103,6 +117,10 @@
     <?php if(@$rowdata['user_location'] !== '' && count($rowdata) >0):?>
     $("#location").val('<?=@$rowdata['user_location']?>');
     <?php endif;?>
+    <?php if(@$rowdata['user_noti'] == 1):?>
+    $('#user_noti').prop('checked', true);
+    $("#user_noti_txt").val('<?=@$rowdata['user_noti']?>');
+    <?php endif;?>
 function submit() {
   var id = $('#user_id').val();
   var forms=($('#formdata').serialize());
@@ -110,4 +128,14 @@ function submit() {
   $("#formdata").attr('action', url);
   $("#formdata").submit();
 }
+</script>
+<script>
+$("#user_noti").on('change', function() {
+  if ($(this).is(':checked')) {
+    $(this).next("#user_noti_txt").attr('value', '1');
+  } else {
+    $(this).next("#user_noti_txt").attr('value', '0');
+  }
+
+});
 </script>

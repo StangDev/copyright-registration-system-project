@@ -264,6 +264,33 @@ class Controlpanels extends CI_Controller {
    return $CodeEX;
   }
 
+  public function send_email($to, $subject, $message) {
+    $config = Array(
+        'protocol' => 'smtp',
+        'smtp_host' => 'ssl://smtp.googlemail.com',
+        'smtp_port' => 465, //465,
+        'smtp_user' => 'aszo.gammer@gmail.com',
+        'smtp_pass' => 'bedrapper',
+        //'smtp_crypto' => 'tls',
+        'smtp_timeout' => '20',
+        'mailtype'  => 'html',
+        'charset'   => 'utf-8'
+    );
+    $config['newline'] = "\r\n";
+    $config['crlf'] = "\r\n";
+    $this->CI->load->library('email', $config);
+    $this->CI->email->from('myself@gmx.com', 'Admin');
+    $this->CI->email->to($to);
+    $this->CI->email->subject($subject);
+    $this->CI->email->message($message);
+
+    //$this->email->send();
+    if ( ! $this->CI->email->send()) {
+        return false;
+    }
+    return true;
+}
+
 
 
 }

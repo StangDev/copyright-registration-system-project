@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2019 at 07:10 PM
+-- Generation Time: Jan 20, 2019 at 09:57 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -84,6 +84,8 @@ CREATE TABLE `user` (
   `user_last_name` varchar(255) DEFAULT NULL,
   `user_level` varchar(10) DEFAULT NULL,
   `user_location` varchar(255) DEFAULT NULL,
+  `user_email` varchar(500) DEFAULT NULL,
+  `user_noti` tinyint(1) DEFAULT NULL,
   `user_status` varchar(255) DEFAULT NULL,
   `create_date` date DEFAULT NULL,
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
@@ -93,9 +95,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_type`, `user_first_name`, `user_last_name`, `user_level`, `user_location`, `user_status`, `create_date`, `update_date`) VALUES
-(1, 'admin', 'admin', 'admin', 'tanakorn', 'norsuwan', '1', 'คณะวิศวกรรมศาสตร์และเทคโนโลยี', '1', '2018-03-20', '2019-01-13 05:33:01'),
-(4, 'user', 'user', 'user', 'wararat', 'khota', '0', 'คณะการจัดการธุรกิจอาหาร', '1', '2018-03-31', '2019-01-13 05:38:09');
+INSERT INTO `user` (`user_id`, `user_name`, `user_pass`, `user_type`, `user_first_name`, `user_last_name`, `user_level`, `user_location`, `user_email`, `user_noti`, `user_status`, `create_date`, `update_date`) VALUES
+(1, 'admin', 'admin', 'admin', 'tanakorn', 'norsuwan', '1', 'คณะวิศวกรรมศาสตร์และเทคโนโลยี', 'tanakron.norsuwan@gmail.com', 1, '1', '2018-03-20', '2019-01-20 08:02:17'),
+(4, 'user', 'user', 'user', 'wararat', 'khota', '0', 'คณะการจัดการธุรกิจอาหาร', NULL, NULL, '1', '2018-03-31', '2019-01-13 05:38:09');
 
 -- --------------------------------------------------------
 
@@ -207,7 +209,7 @@ ALTER TABLE `operations`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_forms`

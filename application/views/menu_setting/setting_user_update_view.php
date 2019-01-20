@@ -34,6 +34,12 @@
           </div>
         </div>
         <div class="form-group row">
+          <label for="example-text-input" class="col-2 col-form-label">อีเมล :</label>
+          <div class="col-7">
+              <input class="form-control" type="email" value="<?=@$rowdata['user_email']?>" placeholder="" name="email">
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="example-text-input" class="col-2 col-form-label" >ตำแหน่ง :</label>
           <div class="col-7">
             <select name="level" class="form-control" id="level">
@@ -103,6 +109,7 @@
     <?php if(@$rowdata['user_location'] !== '' && count($rowdata) >0):?>
     $("#location").val('<?=@$rowdata['user_location']?>');
     <?php endif;?>
+
 function submit() {
   var id = $('#user_id').val();
   var forms=($('#formdata').serialize());

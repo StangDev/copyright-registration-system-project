@@ -4,33 +4,33 @@
     <div class="card">
       <div style="padding: 50px;">
         <form action="" id="formdata" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="id" value="<?=@$rowdata['user_id']?>">
+          <input type="hidden" name="id" value="">
           <div class="form-group row">
             <label for="example-text-input" class="col-2 col-form-label">ชื่อผู้ใช้:</label>
             <div class="col-7">
-                <input class="form-control" type="text" value="<?=@$rowdata['user_name']?>" placeholder="" name="username">
+                <input class="form-control" type="text" value="" placeholder="" name="username">
             </div>
           </div>
         <div class="form-group row">
           <label for="example-text-input" class="col-2 col-form-label">รหัสผ่าน:</label>
-          <?php if(@$rowdata['user_password']!== '' && count($rowdata) >0):?>
-          <div class="col-7">
-
-          </div>
-        <?php else:?>
           <div class="col-7">
               <input class="form-control" type="password" value="" placeholder="" name="password">
           </div>
-        <?php endif;?>
         </div>
         <div class="form-group row">
           <label for="example-text-input" class="col-2 col-form-label" >ชื่อ :</label>
           <div class="col-3">
-            <input class="form-control" type="text" value="<?=@$rowdata['user_first_name']?>" placeholder="" name="first_name">
+            <input class="form-control" type="text" value="" placeholder="" name="first_name">
           </div>
           <label for="example-text-input" class="col-2 col-form-label" >นามสกุล :</label>
           <div class="col-3">
-            <input class="form-control" type="text" value="<?=@$rowdata['user_last_name']?>" placeholder="" name="last_name">
+            <input class="form-control" type="text" value="" placeholder="" name="last_name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="example-text-input" class="col-2 col-form-label">อีเมล :</label>
+          <div class="col-7">
+              <input class="form-control" type="email" value="" placeholder="" name="email">
           </div>
         </div>
         <div class="form-group row">

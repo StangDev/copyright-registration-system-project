@@ -83,8 +83,8 @@ $post = $_POST;
               <td><span class="dash1-tasks-peitycharts"><?=@$form_type[$value['form_type']]?></span></td>
               <td><?=@$value['first_name']?> <?=@$value['last_name']?></td>
               <td><?=@$status_oper[$value['status_oper']]?></td>
-              <td width="20%">
-                <a href="<?=URL_Site?>/controlpanel/process/detail/<?=@$value['id_form']?>" class="btn btn-light btn-sm ml-2">รายละเอียด</a>
+              <td width="20%" align="center">
+                <!-- <a href="/controlpanel/process/detail/" class="btn btn-light btn-sm ml-2">รายละเอียด</a> -->
                 <a href="<?=URL_Site?>/controlpanel/document/approved/oper/edit/<?=@$value['id_form']?>" class="btn btn-light btn-sm ml-2">แก้ไข</a>
               </td>
             </tr>
@@ -115,10 +115,3 @@ $(document).ready(function(){
 });
 
 </script>
-
-รายการแก้ไข
-
--ปรับแก้ประเภท
--ปรับโครงสร้าง DB
--ปรับการดำเนินการติดตาม
--ปรับหน้าค้นหา

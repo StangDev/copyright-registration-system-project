@@ -70,12 +70,21 @@ class Document extends CI_Controller {
         }
       }
     }
+  $htmlContent = '<p>เรียน, เจ้าหน้าที่อนุมัติคำร้อง</p>';
+  $htmlContent .= '<p> คุณ'.$post['first_name'].' '.$post['last_name'].' ได้ประสงค์ยื่นคำร้อง ชื่อผลงาน '.$post['name_oper'].' โปรดพิจราณาและดำเนินการตามขั้นตอนต่อไป.</p>';
+  $htmlContent .= '<p>จึงเรียนมาเพื่อโปรดพิจารณา,</p>';
+  $htmlContent .= '<p>ระบบการจัดการ</p>';
+  $arr_email = $this->Controlpanel_model->get_list_admin_noti();
 
+  foreach ($arr_email as $value) {
+    $this->send_email($value['user_email'],'คำร้องเข้าใหม่',$htmlContent);
+  }
+
+  $this->Controlpanel_model->form_insert($post);
   $title = $this->uri->segment(1);
   $data  = array('title' => $title.' / document / form',
                   'user'=>$_SESSION);
   $this->load->view('template/header',$data);
-  $this->Controlpanel_model->form_insert($post);
   $this->load->view('loader/user_form_success_view');
   //$post = $_POST;
   //$this->do_upload($post);
@@ -273,10 +282,21 @@ class Document extends CI_Controller {
         }
       }
     }
+    $status_oper =  array('กำลังดำเนินการ','ส่งกลับแก้ไข' , 'ยกเลิกคำขอ','ดำเนินการในชั้นศาล','ไม่รับการจด','จดเรียบร้อยแล้ว','อนุมัติเอกสาร');
+    if (!$this->Controlpanel_model->check_status_oper($post['status_oper'])){
+       $arr_user = $this->Controlpanel_model->get_userByusername($post['id_form']);
+       foreach ($arr_user as $value) {
+         $htmlContent = '<p>เรียน, คุณ'.$value['user_first_name'].' '.$value['user_last_name'].'</p>';
+         $htmlContent .= '<p> ระบบได้มีการเปลี่ยนแปลงผลดำเนินการเป็น "'.$status_oper[$post['status_oper']].'" ชื่อผลงาน '.$post['name_oper'].' โปรดตรวจสอบความถูกต้องหากมีข้อสงสัยกรุณาติดต่อเจ้าหน้าที่โดยตรง.</p>';
+         $htmlContent .= '<p>จึงเรียนมาเพื่อทราบ,</p>';
+         $htmlContent .= '<p>ระบบการจัดการ</p>';
+         $this->send_email($value['user_email'],'ผลดำเนินการคำร้องของคุณถูกเปลี่ยนเป็น " '.$status_oper[$post['status_oper']].' "',$htmlContent);
+       }
 
+    }
     $this->Controlpanel_model->approved_form_oper_update($post);
     redirect(URL_Site."/controlpanel/process");
-    exit(0);
+
   }
   public function do_upload($post)
       {
@@ -334,6 +354,34 @@ class Document extends CI_Controller {
     $rowdata = $this->Controlpanel_model->get_list_document($id);
     echo json_encode($rowdata);
   }
+  public function send_email($to, $subject, $message) {
+    $config = Array(
+        'protocol' => 'smtp',
+        'smtp_host' => 'ssl://smtp.googlemail.com',
+        'smtp_port' => 465, //465,
+        'smtp_user' => 'aszo.gamer@gmail.com',
+        'smtp_pass' => 'bedrapper',
+        //'smtp_crypto' => 'tls',
+        'smtp_timeout' => '10',
+        'mailtype'  => 'html',
+        'charset'   => 'utf-8'
+    );
+    //$config['newline'] = "\r\n";
+    $config['crlf'] = "\r\n";
+    $this->load->library('email', $config);
+    $this->email->set_newline("\r\n");
+    $this->email->from('aszo.gamer@gmail.com', 'BOT-Project');
+    $this->email->to($to);
+    $this->email->subject($subject);
+    $this->email->message($message);
+
+    //$this->email->send();
+
+    if ( ! $this->email->send()) {
+        return false;
+    }
+    return true;
+}
 
 
 }

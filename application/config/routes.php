@@ -82,7 +82,6 @@ $route['controlpanel/document/form/draft/insert'] = 'Document/form_draft_insert'
 $route['controlpanel/document/form/draft/update'] = 'Document/form_draft_update';
 $route['controlpanel/document/form/draft/edit/(:any)'] = 'Document/form_draft_edit';
 $route['controlpanel/document/getListDoc/(:any)'] = 'Document/get_list_document';
-
 /////// Setting Controller ///////////////
 
 $route['controlpanel/setting/viewuser'] = 'Controlpanels/setting_viewuser';
