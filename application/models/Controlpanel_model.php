@@ -96,7 +96,8 @@ class Controlpanel_model extends CI_Model {
                             user_forms.last_name,
                               user_forms.location,
                                 user_forms.id_form,
-                                  user_forms.level');
+                                  user_forms.level,
+                                    user_forms.insert_time');
       $this->db->from('operations');
       $this->db->where('user_forms.form_status',0);
       $this->db->join('user_forms','user_forms.id_form=operations.id_form', 'left');
@@ -370,6 +371,40 @@ class Controlpanel_model extends CI_Model {
       $this->db->where('id_form',$post['id_form']);
       $this->db->update('operations', $data);
     }
+    public function form_disapproved($post=array())
+    {
+      $data = array(
+        'status_oper'         => 4,
+        'Subdetail_oper'      => $post['note'],
+      );
+      $this->db->where('id_form',$post['id_form']);
+      $this->db->update('operations', $data);
+
+      $obj = array(
+        'form_status'   => 1,
+      );
+      $this->db->where('id_form',$post['id_form']);
+      $this->db->update('user_forms', $obj);
+
+      $oper = $this->get_id_operByid_form($post['id_form']);
+      $post_flow = array(
+      'id_oper'       => $oper,
+      'name_flow'     => 'ไม่อนุมัติเอกสาร',
+      'detail_flow'   => $post['note'],
+      'status_flow'   => 4
+     );
+      $this->process_detail_insert($post_flow);
+    }
+    public function get_id_operByid_form($value)
+    {
+      $this->db->select('operations.id_oper');
+      $this->db->from('operations');
+      $this->db->where('operations.id_form',$value);
+      $this->db->join('user_forms','user_forms.id_form=operations.id_form');
+      $query=$this->db->get();
+      $rowdata =$query->result_array();
+      return $rowdata[0]['id_oper'];
+    }
     public function update_status_form($id,$value)
     {
       $data = array('form_status' => $value);
@@ -502,6 +537,9 @@ class Controlpanel_model extends CI_Model {
         if ($post['name_oper']!="") {
         $this->db->like('name_oper',$post['name_oper']);
         }
+        if ($post['location']!="") {
+        $this->db->like('location',$post['location']);
+        }
       }
       $this->db->select('operations.id_oper,
                           operations.course_year,
@@ -529,7 +567,7 @@ class Controlpanel_model extends CI_Model {
     }
     public function process_detail_insert($post=array())
     {
-      if ($post['status_flow'] == 5) {
+      if ($post['status_flow'] == 5 || $post['status_flow'] == 4 ) {
         $progress_count = 100;
       }else {
         $form_type_count = array('','10' , '10','15','15','12');

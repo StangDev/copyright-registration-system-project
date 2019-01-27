@@ -263,6 +263,12 @@ class Document extends CI_Controller {
     redirect(URL_Site."/controlpanel/document/approved");
     exit(0);
   }
+  public function approved_disapproved()
+  {
+    $post = $_POST;
+    $this->Controlpanel_model->form_disapproved($post);
+    exit(0);
+  }
   public function approved_form_update()
   {
     $post = $_POST;

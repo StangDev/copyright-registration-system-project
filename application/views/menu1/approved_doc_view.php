@@ -25,8 +25,8 @@
             <div class="section-2">
               <small class="text-muted mr-auto hidden-xs-down">(<?=@date("d/m/Y", strtotime($value['insert_time']))?>)</small>
               <button type="button" class="btn btn-light btn-sm ml-2" data-toggle="modal" data-target="#exampleModal" onclick="getDoc('<?=@$value['id_form']?>');"><i class="fa fa-download" aria-hidden="true"></i> รายการเอกสาร </button >
-              <a href="<?=URL_Site?>/controlpanel/document/approved/form/edit/<?=@$value['id_form']?>" class="btn btn-success btn-sm ml-2">อนุมัติ</a>
-              <a href="#" class="btn btn-danger btn-sm ml-2">ไม่อนุมัติ</a>
+              <a href="<?=URL_Site?>/controlpanel/document/approved/form/edit/<?=@$value['id_form']?>"class="btn btn-success btn-sm ml-2">อนุมัติ</a>
+              <button onclick="setIdDelete('<?=@$value['id_form']?>');" class="btn btn-danger btn-sm ml-2" data-toggle="modal" data-target="#ModalDisapproved" aria-hidden="true">ไม่อนุมัติ</button>
             </div>
           </div>
         <?php endforeach;else: ?>
@@ -56,9 +56,32 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="ModalDisapproved" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ไม่อนุมัติคำร้องเนื่องจาก</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <textarea id="Disapproveddetail" ></textarea>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+       <button type="button" class="btn btn-primary" onclick="goDelete();">ยืนยัน</button>
+     </div>
+    </div>
+  </div>
+</div>
   </div>
   <!-- /.site-content -->
-<?php   $this->load->view('template/footer');?>
+<?php   $this->load->view('template/footer');
+echo js_asset('vendor/froala_editor_2.8.5/js/froala_editor.min.js');
+echo js_asset('vendor/froala_editor_2.8.5/js/froala_editor.pkgd.min.js');
+?>
 <script>
 function getDoc(id) {
   var dataName = {
@@ -119,5 +142,23 @@ function getDoc(id) {
       $('#list-document').html(html);
   });
 }
+function goDelete() {
+  var note =   $('#Disapproveddetail').froalaEditor('html.get');
+  var id  = sessionStorage.getItem("Delete");
+  $.post( "<?=URL_Site?>/controlpanel/document/approved/form/disapproved",{id_form:id,note:note}, function( data ) {
 
+       setTimeout(function(){
+          location.reload();
+       }, 1000);
+  });
+}
+function setIdDelete(id) {
+  $('#Disapproveddetail').val('');
+  sessionStorage.setItem("Delete", id);
+}
+$(function() {
+  $('#Disapproveddetail').froalaEditor({
+    toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'fontFamily', 'fontSize', '|', 'color', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertTable', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
+  });
+});
 </script>
