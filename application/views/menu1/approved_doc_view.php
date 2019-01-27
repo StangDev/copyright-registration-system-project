@@ -26,7 +26,7 @@
               <small class="text-muted mr-auto hidden-xs-down">(<?=@date("d/m/Y", strtotime($value['insert_time']))?>)</small>
               <button type="button" class="btn btn-light btn-sm ml-2" data-toggle="modal" data-target="#exampleModal" onclick="getDoc('<?=@$value['id_form']?>');"><i class="fa fa-download" aria-hidden="true"></i> รายการเอกสาร </button >
               <a href="<?=URL_Site?>/controlpanel/document/approved/form/edit/<?=@$value['id_form']?>"class="btn btn-success btn-sm ml-2">อนุมัติ</a>
-              <button onclick="setIdDelete('<?=@$value['id_form']?>');" class="btn btn-danger btn-sm ml-2" data-toggle="modal" data-target="#ModalDisapproved" aria-hidden="true">ไม่อนุมัติ</button>
+              <button onclick="setIdDelete('<?=@$value['id_form']?>','<?=@$value['name_oper']?>');" class="btn btn-danger btn-sm ml-2" data-toggle="modal" data-target="#ModalDisapproved" aria-hidden="true">ไม่อนุมัติ</button>
             </div>
           </div>
         <?php endforeach;else: ?>
@@ -145,16 +145,18 @@ function getDoc(id) {
 function goDelete() {
   var note =   $('#Disapproveddetail').froalaEditor('html.get');
   var id  = sessionStorage.getItem("Delete");
-  $.post( "<?=URL_Site?>/controlpanel/document/approved/form/disapproved",{id_form:id,note:note}, function( data ) {
+  var name  = sessionStorage.getItem("Delete_name");
+  $.post( "<?=URL_Site?>/controlpanel/document/approved/form/disapproved",{id_form:id,note:note,name_oper:name}, function( data ) {
 
        setTimeout(function(){
           location.reload();
        }, 1000);
   });
 }
-function setIdDelete(id) {
+function setIdDelete(id,name) {
   $('#Disapproveddetail').val('');
   sessionStorage.setItem("Delete", id);
+  sessionStorage.setItem("Delete_name", name);
 }
 $(function() {
   $('#Disapproveddetail').froalaEditor({
