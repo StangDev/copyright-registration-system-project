@@ -381,7 +381,7 @@ class Controlpanel_model extends CI_Model {
       $this->db->update('operations', $data);
 
       $obj = array(
-        'form_status'   => 1,
+        'form_status'   => 2,
       );
       $this->db->where('id_form',$post['id_form']);
       $this->db->update('user_forms', $obj);

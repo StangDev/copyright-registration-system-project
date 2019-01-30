@@ -270,6 +270,8 @@ class Document extends CI_Controller {
     foreach ($arr_user as $value) {
       $htmlContent = '<p>เรียน, คุณ'.$value['user_first_name'].' '.$value['user_last_name'].'</p>';
       $htmlContent .= '<p> ชื่อผลงาน "'.$post['name_oper'].'" เจ้าหน้าที่ประเมินให้ไม่ผ่านการอนุมัติ โปรดตรวจสอบความถูกต้องหากมีข้อสงสัยกรุณาติดต่อเจ้าหน้าที่โดยตรง.</p>';
+      $htmlContent .= '<u>หมายเหต</u>';
+      $htmlContent .=  $post['note'];
       $htmlContent .= '<p>จึงเรียนมาเพื่อทราบ,</p>';
       $htmlContent .= '<p>ระบบการจัดการ</p>';
       $this->send_email($value['user_email'],'คำร้องของท่านไม่ผ่านการอนุมัติ',$htmlContent);
