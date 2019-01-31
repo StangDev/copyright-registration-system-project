@@ -306,7 +306,8 @@ function inputFileName(id) {
   var fieldVal = $(id).val();
   if (fieldVal != undefined || fieldVal != "") {
     $(id).next(".custom-file-control").attr('data-content', fieldVal);
-
+    console.log('id.name ',id.name );
+    $( '#ch_'+id.name ).remove();
     var element = document.createElement("i");
         element.setAttribute("class","fa fa-check-circle fa-3x");
         element.setAttribute("aria-hidden","true");
@@ -328,8 +329,11 @@ function insertfile(type) {
           var element = document.createElement("i");
               element.setAttribute("class","fa fa-check-circle fa-3x");
               element.setAttribute("aria-hidden","true");
+              element.setAttribute("id",'ch_'+val.type);
               element.setAttribute("style","color: rgb(37, 174, 136); --darkreader-inline-color:#a7ffe4;");
               document.getElementById("Div_"+val.type).appendChild(element);
+
+              //$('#Div_'+val.type).html(element);
       });
     }, 1000);
 }
